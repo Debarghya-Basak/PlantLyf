@@ -3,6 +3,8 @@ package com.db.plantlyf;
 import static android.graphics.Shader.TileMode.MIRROR;
 import static android.graphics.Shader.TileMode.REPEAT;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.media.MediaPlayer;
@@ -30,6 +32,7 @@ public class LoginOrRegister extends AppCompatActivity {
 
     ActivityLoginOrRegisterBinding binding;
     private boolean onResumeFlag = false;
+    private String navigation = "LoginOrRegister";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,30 +42,61 @@ public class LoginOrRegister extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         startBgVideo();
-        blurBg();
+        startBtnListeners();
 
         //startBgVideoExo();
 
     }
 
-    private void startBgVideoExo() {
+    private void startBtnListeners() {
 
-        ExoPlayer player = new ExoPlayer.Builder(this).build();
-        //binding.LoginOrRegisterBgPV.setPlayer(player);
 
-        MediaItem mediaItem = MediaItem.fromUri("android.resource://" + getPackageName() + "/" + R.raw.plantlyfbganim);
-        player.setMediaItem(mediaItem);
-        player.prepare();
-        player.play();
+        binding.loginOrRegisterLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoginSet();
+            }
+        });
+
+        binding.loginOrRegisterRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRegisterSet();
+                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
+                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
+                startActivity(intent, b);
+            }
+        });
 
     }
-    private void blurBg(){
 
+    private void showLoginSet() {
 
+        binding.loginOrRegisterAppNameTV.animate().alpha(0).setDuration(500).start();
+        binding.loginOrRegisterBtnLL.animate().alpha(0).setDuration(500).start();
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.loginOrRegisterBtnLL.setVisibility(View.GONE);
+                binding.loginOrRegisterAppNameTV.setVisibility(View.GONE);
+            }
+        },500);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.loginOrRegisterBtnLL.setVisibility(View.VISIBLE);
+                binding.loginOrRegisterAppNameTV.setVisibility(View.VISIBLE);
+                binding.loginOrRegisterAppNameTV.animate().alpha(1).setDuration(500).start();
+                binding.loginOrRegisterBtnLL.animate().alpha(1).setDuration(500).start();
+            }
+        },1000);
 
     }
 
+    private void showRegisterSet() {
+    }
 
     private void startBgVideo(){
 
@@ -108,4 +142,16 @@ public class LoginOrRegister extends AppCompatActivity {
             onResumeFlag = true;
         super.onResume();
     }
+
+    //    private void startBgVideoExo() {
+//
+//        ExoPlayer player = new ExoPlayer.Builder(this).build();
+//        //binding.LoginOrRegisterBgPV.setPlayer(player);
+//
+//        MediaItem mediaItem = MediaItem.fromUri("android.resource://" + getPackageName() + "/" + R.raw.plantlyfbganim);
+//        player.setMediaItem(mediaItem);
+//        player.prepare();
+//        player.play();
+//
+//    }
 }

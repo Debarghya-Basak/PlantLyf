@@ -41,55 +41,66 @@
 
     </FrameLayout>
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/loginOrRegister_appNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+
+        android:text="PLANTLYF"
+        android:gravity="center_horizontal"
+        android:textSize="50dp"
+        android:textColor="#95000000"
+        android:textStyle="bold"
+        android:letterSpacing="0.25"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/loginOrRegister_btnLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="center_horizontal">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="50dp"
 
-            android:text="PLANTLYF"
-            android:gravity="center_horizontal"
-            android:textSize="50dp"
-            android:textColor="#9494E300"
-            android:textStyle="bold"
-            android:letterSpacing="0.25"/>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="200dp"
+            android:id="@+id/loginOrRegister_loginBtn"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_margin="10dp"
 
-            app:strokeWidth="2dp"
-            app:strokeColor="#9494E300"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black"
             android:text="LOGIN"
+            android:textColor="@color/white"
             android:elevation="10dp"
-            android:backgroundTint="#1B94E300"
-            app:rippleColor="#393939"/>
+            android:backgroundTint="#1B000000"
+            app:rippleColor="#5C000000"/>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="200dp"
+            android:id="@+id/loginOrRegister_registerBtn"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_margin="10dp"
 
-            app:strokeWidth="2dp"
-            app:strokeColor="#9494E300"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black"
             android:text="REGISTER"
+            android:textColor="@color/white"
             android:elevation="10dp"
-            android:backgroundTint="#1B94E300"
-            app:rippleColor="#393939"/>
+            android:backgroundTint="#1B000000"
+            app:rippleColor="#5C000000"/>
 
     </LinearLayout>
 
