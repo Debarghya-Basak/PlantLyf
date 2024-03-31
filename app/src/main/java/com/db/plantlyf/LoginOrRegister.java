@@ -1,9 +1,15 @@
 package com.db.plantlyf;
 
+import static android.graphics.Shader.TileMode.MIRROR;
+import static android.graphics.Shader.TileMode.REPEAT;
+
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.media3.common.MediaItem;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.SimpleExoPlayer;
 
 import com.db.plantlyf.databinding.ActivityLoginOrRegisterBinding;
 
@@ -30,8 +39,30 @@ public class LoginOrRegister extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         startBgVideo();
+        blurBg();
+
+        //startBgVideoExo();
 
     }
+
+    private void startBgVideoExo() {
+
+        ExoPlayer player = new ExoPlayer.Builder(this).build();
+        //binding.LoginOrRegisterBgPV.setPlayer(player);
+
+        MediaItem mediaItem = MediaItem.fromUri("android.resource://" + getPackageName() + "/" + R.raw.plantlyfbganim);
+        player.setMediaItem(mediaItem);
+        player.prepare();
+        player.play();
+
+    }
+    private void blurBg(){
+
+
+
+
+    }
+
 
     private void startBgVideo(){
 
