@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
@@ -37,14 +38,16 @@ public class LoginOrRegister extends AppCompatActivity {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         float height = displayMetrics.heightPixels;
         float width = displayMetrics.widthPixels;
-        float dpHeight = height / displayMetrics.density;
-        float dpWidth = width / displayMetrics.density;
         //Toast.makeText(this, dpHeight + "," + dpWidth, Toast.LENGTH_SHORT).show();
 
         VideoView videoView = binding.LoginOrRegisterBgVV;
+        ImageView imageView = binding.TempBgImageIV;
         ViewGroup.LayoutParams layoutParams = videoView.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams1 = imageView.getLayoutParams();
         layoutParams.width = (int)width + ((int)((width * 37.0) / 100.0));
+        layoutParams1.width = (int)width + ((int)((width * 37.0) / 100.0));
         videoView.setLayoutParams(layoutParams);
+        imageView.setLayoutParams(layoutParams1);
         videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfbganim);
         videoView.start();
 
@@ -53,7 +56,7 @@ public class LoginOrRegister extends AppCompatActivity {
             public void run() {
                 videoView.setVisibility(View.VISIBLE);
             }
-        },1000);
+        },500);
 
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

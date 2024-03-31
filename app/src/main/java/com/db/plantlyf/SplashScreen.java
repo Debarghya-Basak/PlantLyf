@@ -69,6 +69,13 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent, b);
             }
         }, 2500);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 3000);
     }
 
     private boolean isDarkModeEnabled() {

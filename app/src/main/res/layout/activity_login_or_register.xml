@@ -7,27 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".LoginOrRegister">
 
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_overlay_plantlyf_bg_video"
-        android:elevation="1dp"/>
-
-    <ImageView
-        android:id="@+id/TempBgImageIV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/tempbgvideo"/>
-
-    <VideoView
-        android:id="@+id/LoginOrRegisterBgVV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_overlay_plantlyf_bg_video"
+            android:elevation="1dp"/>
+
+        <ImageView
+            android:id="@+id/TempBgImageIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tempbgvideo"/>
+
+        <VideoView
+            android:id="@+id/LoginOrRegisterBgVV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
