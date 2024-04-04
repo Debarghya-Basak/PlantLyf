@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -46,6 +47,51 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
             }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Load the image from the device storage
+                    int resourceId = R.raw.blacksoiltemp;
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+
+                    if (bitmap != null) {
+                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+
+                        Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            },5000);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Load the image from the device storage
+                    int resourceId = R.raw.alluvialsoiltemp;
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+
+                    if (bitmap != null) {
+                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+
+                        Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            },10000);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Load the image from the device storage
+                    int resourceId = R.raw.redsoiltemp;
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+
+                    if (bitmap != null) {
+                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+
+                        Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            },15000);
 
         } catch (IOException e) {
            Log.e("Error",e+"");
