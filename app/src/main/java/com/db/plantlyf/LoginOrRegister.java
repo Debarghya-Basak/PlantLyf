@@ -189,7 +189,12 @@ public class LoginOrRegister extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        showLoginRegisterSet();
+        if(navigation.equals("LoginOrRegister")) {
+            super.onBackPressed();
+        }
+        else {
+            showLoginRegisterSet();
+        }
         //Toast.makeText(this, "Back and nothing else", Toast.LENGTH_SHORT).show();
     }
 
