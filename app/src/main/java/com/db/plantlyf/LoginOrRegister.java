@@ -3,6 +3,7 @@ package com.db.plantlyf;
 import static android.graphics.Shader.TileMode.MIRROR;
 import static android.graphics.Shader.TileMode.REPEAT;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.RenderEffect;
@@ -15,6 +16,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
@@ -50,7 +52,6 @@ public class LoginOrRegister extends AppCompatActivity {
 
     private void startBtnListeners() {
 
-
         binding.loginOrRegisterLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,40 +63,92 @@ public class LoginOrRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showRegisterSet();
-                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
-                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
-                startActivity(intent, b);
+//                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
+//                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
+//                startActivity(intent, b);
             }
         });
+
+        binding.loginRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {showRegisterSet();}
+        });
+
+        binding.registerLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {showLoginSet();}
+        });
+
+    }
+
+    private void showLoginRegisterSet(){
+
+        if(navigation.equals("Login"))
+            binding.loginContainerLL.animate().alpha(0).setDuration(500).start();
+        else if(navigation.equals("Register"))
+            binding.registerContainerLL.animate().alpha(0).setDuration(500).start();
+
+        navigation = "LoginOrRegister";
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.loginContainerLL.setVisibility(View.GONE);
+                binding.registerContainerLL.setVisibility(View.GONE);
+                binding.loginOrRegisterBtnLL.setVisibility(View.VISIBLE);
+                binding.loginOrRegisterAppNameTV.setVisibility(View.VISIBLE);
+                binding.loginOrRegisterAppNameTV.animate().alpha(1).setDuration(500).start();
+                binding.loginOrRegisterBtnLL.animate().alpha(1).setDuration(500).start();
+            }
+        },700);
 
     }
 
     private void showLoginSet() {
 
-        binding.loginOrRegisterAppNameTV.animate().alpha(0).setDuration(500).start();
-        binding.loginOrRegisterBtnLL.animate().alpha(0).setDuration(500).start();
+        if(navigation.equals("LoginOrRegister")) {
+            binding.loginOrRegisterAppNameTV.animate().alpha(0).setDuration(500).start();
+            binding.loginOrRegisterBtnLL.animate().alpha(0).setDuration(500).start();
+        }
+        else if(navigation.equals("Register"))
+            binding.registerContainerLL.animate().alpha(0).setDuration(500).start();
+
+        navigation = "Login";
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 binding.loginOrRegisterBtnLL.setVisibility(View.GONE);
                 binding.loginOrRegisterAppNameTV.setVisibility(View.GONE);
+                binding.registerContainerLL.setVisibility(View.GONE);
+                binding.loginContainerLL.setVisibility(View.VISIBLE);
+                binding.loginContainerLL.animate().alpha(1).setDuration(500).start();
             }
-        },500);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                binding.loginOrRegisterBtnLL.setVisibility(View.VISIBLE);
-                binding.loginOrRegisterAppNameTV.setVisibility(View.VISIBLE);
-                binding.loginOrRegisterAppNameTV.animate().alpha(1).setDuration(500).start();
-                binding.loginOrRegisterBtnLL.animate().alpha(1).setDuration(500).start();
-            }
-        },1000);
+        },700);
 
     }
 
     private void showRegisterSet() {
+
+        if(navigation.equals("LoginOrRegister")) {
+            binding.loginOrRegisterAppNameTV.animate().alpha(0).setDuration(500).start();
+            binding.loginOrRegisterBtnLL.animate().alpha(0).setDuration(500).start();
+        }
+        else if(navigation.equals("Login"))
+            binding.loginContainerLL.animate().alpha(0).setDuration(500).start();
+
+        navigation = "Register";
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.loginOrRegisterBtnLL.setVisibility(View.GONE);
+                binding.loginOrRegisterAppNameTV.setVisibility(View.GONE);
+                binding.loginContainerLL.setVisibility(View.GONE);
+                binding.registerContainerLL.setVisibility(View.VISIBLE);
+                binding.registerContainerLL.animate().alpha(1).setDuration(500).start();
+            }
+        },700);
     }
 
     private void startBgVideo(){
@@ -131,6 +184,13 @@ public class LoginOrRegister extends AppCompatActivity {
             }
         });
 
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        showLoginRegisterSet();
+        //Toast.makeText(this, "Back and nothing else", Toast.LENGTH_SHORT).show();
     }
 
     @Override
