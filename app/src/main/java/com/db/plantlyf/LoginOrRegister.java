@@ -79,6 +79,15 @@ public class LoginOrRegister extends AppCompatActivity {
             public void onClick(View v) {showLoginSet();}
         });
 
+        binding.registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
+                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
+                startActivity(intent, b);
+            }
+        });
+
     }
 
     private void showLoginRegisterSet(){
