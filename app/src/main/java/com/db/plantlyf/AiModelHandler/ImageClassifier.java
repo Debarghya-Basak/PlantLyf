@@ -2,6 +2,8 @@ package com.db.plantlyf.AiModelHandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.widget.ImageView;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 
 public class ImageClassifier {
 
@@ -32,6 +35,10 @@ public class ImageClassifier {
         int bufferSize = inputImageWidth * inputImageHeight * 3 * Float.SIZE / Byte.SIZE; // 3 for RGB channels
         inputBuffer = ByteBuffer.allocateDirect(bufferSize);
         inputBuffer.order(ByteOrder.nativeOrder());
+
+        // Print the input tensor shape
+        int[] inputShape = tfliteInterpreter.getInputTensor(0).shape();
+        Log.d("Input shape", "Input Tensor Shape: " + Arrays.toString(inputShape));
     }
 
     private ByteBuffer loadModelFile(Context context) throws IOException {
@@ -47,24 +54,31 @@ public class ImageClassifier {
         return buffer;
     }
 
-    public String classifyImage(Bitmap bitmap) {
+    public String classifyImage(Bitmap bitmap, ImageView imageView) {
         // Resize the input image to the model input shape
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, inputImageWidth, inputImageHeight, true);
 
+        imageView.setImageBitmap(resizedBitmap);
         // Normalize the pixel values to [0, 1] and load them into the input ByteBuffer
         inputBuffer.rewind();
+
+        int c = 0;
         for (int y = 0; y < inputImageHeight; y++) {
             for (int x = 0; x < inputImageWidth; x++) {
                 int pixelValue = resizedBitmap.getPixel(x, y);
 
                 // Extract RGB channels and normalize to [0, 1]
-                float red = ((pixelValue >> 16) & 0xFF) / 255.0f;
-                float green = ((pixelValue >> 8) & 0xFF) / 255.0f;
-                float blue = (pixelValue & 0xFF) / 255.0f;
+                float red = ((pixelValue >> 16) & 0xFF);
+                float green = ((pixelValue >> 8) & 0xFF);
+                float blue = (pixelValue & 0xFF);
 
                 inputBuffer.putFloat(red);
                 inputBuffer.putFloat(green);
                 inputBuffer.putFloat(blue);
+                if(c < 20)
+                    Log.d("Image float values", red + "," + green + "," + blue);
+
+                c++;
             }
         }
 
@@ -79,7 +93,8 @@ public class ImageClassifier {
     private String processOutput(float[][] output) {
         int maxIndex = 0;
         float maxProbability = output[0][0];
-        for (int i = 1; i < output[0].length; i++) {
+        for (int i = 0; i < output[0].length; i++) {
+            Log.d("Predicted output : ", output[0][i]+"");
             if (output[0][i] > maxProbability) {
                 maxProbability = output[0][i];
                 maxIndex = i;

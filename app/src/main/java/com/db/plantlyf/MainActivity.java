@@ -12,17 +12,21 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.db.plantlyf.AiModelHandler.ImageClassifier;
+import com.db.plantlyf.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
     private ImageClassifier imageClassifier;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         try {
             // Define the input image dimensions and class labels
@@ -34,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
             imageClassifier = new ImageClassifier(this, inputImageWidth, inputImageHeight, labels);
 
             // Load the image from the device storage
-            int resourceId = R.raw.blacksoiltemp;
+            int resourceId = R.raw.claysoiltemp;
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
 
             if (bitmap != null) {
-                String predictedLabel = imageClassifier.classifyImage(bitmap);
+                String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
 
                 Toast.makeText(this, "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
             }
