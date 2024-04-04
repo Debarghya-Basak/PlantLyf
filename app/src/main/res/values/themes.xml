@@ -10,4 +10,32 @@
     </style>
 
     <style name="Theme.PlantLyf" parent="Base.Theme.PlantLyf" />
+
+    <style name="loginRegisterEditTextLayout" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense">
+
+        <item name="boxStrokeColor">@color/black</item>
+        <item name="boxStrokeWidth">3dp</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="hintEnabled">true</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="boxBackgroundColor">#80000000</item>
+        <item name="boxCornerRadiusTopStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="cursorColor">@color/black</item>
+        <item name="android:textColorHint">#AEFFFFFF</item>
+        <item name="android:textColorHighlight">@color/white</item>
+
+    </style>
+
+    <style name="loginRegisterButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">#99000000</item>
+        <item name="backgroundTint">#1B000000</item>
+        <item name="rippleColor">#5C000000</item>
+        <item name="cornerRadius">20dp</item>
+
+    </style>
 </resources>

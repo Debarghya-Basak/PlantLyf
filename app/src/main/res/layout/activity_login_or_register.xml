@@ -45,6 +45,7 @@
         android:id="@+id/loginOrRegister_appNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
 
         android:text="PLANTLYF"
         android:gravity="center_horizontal"
@@ -58,12 +59,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
     <LinearLayout
         android:id="@+id/loginOrRegister_btnLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:visibility="gone"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,21 +73,17 @@
         android:gravity="center_horizontal">
 
 
-
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginOrRegister_loginBtn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
 
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/black"
             android:text="LOGIN"
             android:textColor="@color/white"
             android:elevation="10dp"
-            android:backgroundTint="#1B000000"
-            app:rippleColor="#5C000000"/>
+
+            style="@style/loginRegisterButton"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginOrRegister_registerBtn"
@@ -94,17 +91,265 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
 
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/black"
             android:text="REGISTER"
             android:textColor="@color/white"
             android:elevation="10dp"
-            android:backgroundTint="#1B000000"
-            app:rippleColor="#5C000000"/>
+
+            style="@style/loginRegisterButton"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/login_containerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="PLANTLYF"
+            android:gravity="center_horizontal"
+            android:textSize="50dp"
+            android:textColor="#95000000"
+            android:textStyle="bold"
+            android:letterSpacing="0.25" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:text="LOGIN"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"
+            android:textColor="#95000000"
+            android:textStyle="bold"
+            android:letterSpacing="0.25" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_emailET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Enter your email"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Enter your password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            android:text="LOGIN"
+            android:textColor="@color/white"
+
+            style="@style/loginRegisterButton"/>
+
+        <TextView
+            android:id="@+id/login_registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:text="or Register"
+            android:gravity="center_horizontal"
+            android:textSize="15dp"
+            android:textColor="#95000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/login_ForgotpwBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:text="Forgot Password ?"
+            android:gravity="center_horizontal"
+            android:textSize="15dp"
+            android:textColor="#95000000"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/register_containerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="PLANTLYF"
+            android:gravity="center_horizontal"
+            android:textSize="50dp"
+            android:textColor="#95000000"
+            android:textStyle="bold"
+            android:letterSpacing="0.25" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:text="REGISTER"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"
+            android:textColor="#95000000"
+            android:textStyle="bold"
+            android:letterSpacing="0.25" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_nameET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Enter your name"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_emailET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Enter your email"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Enter your password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            style="@style/loginRegisterEditTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_confirmpwET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@color/white"
+                android:hint="Confirm your password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+
+            android:text="REGISTER"
+            android:textColor="@color/white"
+
+            style="@style/loginRegisterButton"/>
+
+        <TextView
+            android:id="@+id/register_loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:text="already Registered ? Login"
+            android:gravity="center_horizontal"
+            android:textSize="15dp"
+            android:textColor="#95000000"
+            android:textStyle="bold" />
 
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
