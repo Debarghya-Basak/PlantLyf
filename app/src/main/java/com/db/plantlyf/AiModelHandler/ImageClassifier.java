@@ -16,8 +16,8 @@ public class ImageClassifier {
     private int inputImageWidth;
     private int inputImageHeight;
     private ByteBuffer inputBuffer;
-    private final String[] labels; // Array of class labels
-    private final int numLabels; // Number of output classes
+    private final String[] labels;
+    private final int numLabels;
 
     public ImageClassifier(Context context, int inputImageWidth, int inputImageHeight, String[] labels) throws IOException {
         this.inputImageWidth = inputImageWidth;
@@ -77,9 +77,6 @@ public class ImageClassifier {
     }
 
     private String processOutput(float[][] output) {
-        // Process the model's output, e.g., get the predicted label
-        // This will depend on the structure of your model's output
-        // For simplicity, let's assume it's a classification model
         int maxIndex = 0;
         float maxProbability = output[0][0];
         for (int i = 1; i < output[0].length; i++) {

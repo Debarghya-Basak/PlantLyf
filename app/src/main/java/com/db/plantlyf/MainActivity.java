@@ -28,27 +28,19 @@ public class MainActivity extends AppCompatActivity {
             // Define the input image dimensions and class labels
             int inputImageWidth = 256;
             int inputImageHeight = 256;
-            String[] labels = {"0", "1", "2", "3"}; // Replace with your class labels
+            String[] labels = {"Alluvial", "Black", "Clay", "Red"}; // Replace with your class labels
 
             // Create an instance of ImageClassifier
             imageClassifier = new ImageClassifier(this, inputImageWidth, inputImageHeight, labels);
 
             // Load the image from the device storage
             int resourceId = R.raw.blacksoiltemp;
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + resourceId);
-
-            String imgPath = uri.toString();
-            //String imgPath = "blacksoiltemp.";
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-            //Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
 
-//            Log.d("bitmap", bitmap.toString());
             if (bitmap != null) {
-                // Classify the image
                 String predictedLabel = imageClassifier.classifyImage(bitmap);
 
-                Toast.makeText(this, predictedLabel, Toast.LENGTH_SHORT).show();
-                // Use the predictedLabel as needed
+                Toast.makeText(this, "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
             }
 
         } catch (IOException e) {
