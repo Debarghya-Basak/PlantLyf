@@ -26,12 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_overlay_plantlyf_bg_video" />
+            android:background="@drawable/global_overlay_plantlyf_bg_video" />
 
 
         <!--        <androidx.media3.ui.PlayerView-->
@@ -81,7 +81,7 @@
 
             android:text="LOGIN"
             android:textColor="@color/white"
-            android:elevation="10dp"
+            android:elevation="5dp"
 
             style="@style/loginRegisterButton"/>
 
@@ -93,7 +93,7 @@
 
             android:text="REGISTER"
             android:textColor="@color/white"
-            android:elevation="10dp"
+            android:elevation="5dp"
 
             style="@style/loginRegisterButton"/>
 
@@ -181,6 +181,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
+            android:elevation="5dp"
 
             android:text="LOGIN"
             android:textColor="@color/white"
@@ -333,6 +334,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
+            android:elevation="5dp"
 
             android:text="REGISTER"
             android:textColor="@color/white"

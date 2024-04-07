@@ -63,9 +63,6 @@ public class LoginOrRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showRegisterSet();
-//                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
-//                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
-//                startActivity(intent, b);
             }
         });
 
@@ -82,9 +79,9 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginOrRegister.this, MainActivity.class);
-                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
-                startActivity(intent, b);
+                Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
+//                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
+                startActivity(intent);
             }
         });
 
@@ -178,12 +175,13 @@ public class LoginOrRegister extends AppCompatActivity {
         videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfbganim);
         videoView.start();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                videoView.setVisibility(View.VISIBLE);
-            }
-        },500);
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                videoView.setVisibility(View.VISIBLE);
+//            }
+//        },500);
 
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

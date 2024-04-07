@@ -52,7 +52,7 @@ public class SplashScreen extends AppCompatActivity {
         if(isDarkModeEnabled())
             videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfsplashscreendarkmode);
         else
-            videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfsplashscreenlightmode);
+            videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfsplashscreendarkmode);
 
         videoView.start();
 
