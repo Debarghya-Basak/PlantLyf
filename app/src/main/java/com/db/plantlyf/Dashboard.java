@@ -32,7 +32,41 @@ public class Dashboard extends AppCompatActivity {
 //            return insets;
 //        });
 
+        showGreetings();
         startBgVideo();
+    }
+
+    private void showGreetings() {
+
+
+        String time = "evening";
+        String greetingsText = "Good " + time;
+        String userFirstName = "Debarghya";
+
+        binding.greetingsTV.setText(greetingsText);
+        binding.userFirstNameTV.setText(userFirstName);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.greetingsTV.animate().alpha(0).setDuration(500).start();
+                binding.userFirstNameTV.animate().alpha(0).translationXBy(100).setDuration(300).start();
+
+            }
+        },2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                binding.greetingsTV.setVisibility(View.GONE);
+                binding.appNameTV.setVisibility(View.VISIBLE);
+                binding.userFirstNameTV.setVisibility(View.GONE);
+                binding.hiUserFirstNameTV.setVisibility(View.VISIBLE);
+                binding.hiUserFirstNameTV.animate().alpha(1).translationXBy(100).setDuration(300).start();
+                binding.appNameTV.animate().alpha(1).setDuration(500).start();
+            }
+        },2500);
+
     }
 
     private void startBgVideo() {
