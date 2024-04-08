@@ -5,13 +5,15 @@
     <color name="white80">#CCFFFFFF</color>
     <color name="white60">#99FFFFFF</color>
     <color name="white50">#80FFFFFF</color>
-    <color name="rippleBlack">#5C000000</color>
+    <color name="rippleWhite">#66FFFFFF</color>
 
 <!--    Dark Mode-->
     <color name="black">#FF000000</color>
     <color name="black80">#CC000000</color>
     <color name="black60">#99000000</color>
     <color name="black50">#80000000</color>
+    <color name="rippleBlack">#66000000</color>
+
 
 
 </resources>

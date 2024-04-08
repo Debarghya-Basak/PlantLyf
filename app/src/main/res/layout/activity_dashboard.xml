@@ -12,85 +12,82 @@
         android:id="@+id/dashboardBgVV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/global_overlay_plantlyf_bg_video"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
-        android:background="@drawable/global_overlay_plantlyf_bg_video"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/containerBg_V"
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/headerLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
-        android:gravity="center_vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/greetingsTV"
+            style="@style/textColorInverse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
-
-            android:text="Good evening"
-            android:textSize="30sp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
             android:alpha="1"
-            android:visibility="visible"
+            android:text="Good evening"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            android:textStyle="bold"
 
-            style="@style/appNameTextColorInverse"/>
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/appNameTV"
+            style="@style/textColorInverse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
 
-            android:text="@string/app_name"
-            android:textSize="35sp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:letterSpacing="0.15"
+            android:layout_weight="1"
             android:alpha="0"
-            android:visibility="gone"
-            style="@style/appNameTextColorInverse"/>
+            android:letterSpacing="0.15"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
         <!--            android:textColor="#9526A30E"-->
 
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/materialCardInverse"
             android:layout_width="50dp"
             android:layout_height="50dp"
+
             android:layout_gravity="end"
 
-            app:cardCornerRadius="50dp"
-            app:strokeWidth="2dp"
-            app:rippleColor="@color/black"
-            tools:ignore="MissingConstraints" />
+            app:cardCornerRadius="50dp" />
 
 
     </LinearLayout>
@@ -99,49 +96,137 @@
         android:id="@+id/userNameLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/headerLL"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerLL">
 
         <TextView
             android:id="@+id/hiUserFirstNameTV"
+            style="@style/textColorInverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:translationX="-30dp"
 
+            android:alpha="0"
             android:text="Hi Debarghya"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:visibility="gone"
-            android:alpha="0"
-            style="@style/appNameTextColorInverse"
-            />
+            android:translationX="-30dp"
+            android:visibility="gone" />
 
 
         <TextView
             android:id="@+id/userFirstNameTV"
+            style="@style/textColorInverse"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
+            android:layout_height="wrap_content"
+            android:alpha="1"
             android:text="Debarghya"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:alpha="1"
 
-            style="@style/appNameTextColorInverse"
-            />
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:alpha="0.8"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerLL">
 
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/btnStyleInverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+
+            android:layout_marginEnd="20dp"
+            android:text="Manage your plant"
+            app:icon="@drawable/arrow_right_black"
+
+            app:iconGravity="end" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/materialCardInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+
+                android:layout_weight="1" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/materialCardInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/materialCardInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+
+                android:layout_weight="1" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/materialCardInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

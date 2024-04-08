@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        style="@style/appNameTextColor"/>
+        style="@style/textColor"/>
 
     <LinearLayout
         android:id="@+id/loginOrRegister_btnLL"
@@ -83,7 +83,7 @@
             android:text="LOGIN"
             android:elevation="5dp"
 
-            style="@style/loginRegisterButton"/>
+            style="@style/btnStyle"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginOrRegister_registerBtn"
@@ -94,7 +94,7 @@
             android:text="REGISTER"
             android:elevation="5dp"
 
-            style="@style/loginRegisterButton"/>
+            style="@style/btnStyle"/>
 
     </LinearLayout>
 
@@ -122,7 +122,7 @@
             android:textStyle="bold"
             android:letterSpacing="0.25"
 
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -134,7 +134,7 @@
             android:textSize="30dp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -143,7 +143,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_emailET"
@@ -161,7 +161,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_passwordET"
@@ -183,7 +183,7 @@
 
             android:text="LOGIN"
 
-            style="@style/loginRegisterButton"/>
+            style="@style/btnStyle"/>
 
         <TextView
             android:id="@+id/login_registerBtn"
@@ -196,7 +196,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
 
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
         <TextView
             android:id="@+id/login_ForgotpwBtn"
@@ -209,7 +209,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
 
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
     </LinearLayout>
 
@@ -237,7 +237,7 @@
             android:textStyle="bold"
             android:letterSpacing="0.25"
 
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -249,7 +249,7 @@
             android:textSize="30dp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -258,7 +258,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_nameET"
@@ -276,7 +276,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_emailET"
@@ -294,7 +294,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_passwordET"
@@ -312,7 +312,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
 
-            style="@style/loginRegisterEditTextLayout">
+            style="@style/editTextLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_confirmpwET"
@@ -334,7 +334,7 @@
 
             android:text="REGISTER"
 
-            style="@style/loginRegisterButton"/>
+            style="@style/btnStyle"/>
 
         <TextView
             android:id="@+id/register_loginBtn"
@@ -347,7 +347,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
 
-            style="@style/appNameTextColor"/>
+            style="@style/textColor"/>
 
 
     </LinearLayout>
