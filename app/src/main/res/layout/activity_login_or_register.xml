@@ -150,7 +150,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Enter your email"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -169,7 +168,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Enter your password"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -267,7 +265,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Enter your name"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -286,7 +283,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Enter your email"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -305,7 +301,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Enter your password"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -324,7 +319,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:textColor="@color/white"
                 android:hint="Confirm your password"/>
 
         </com.google.android.material.textfield.TextInputLayout>

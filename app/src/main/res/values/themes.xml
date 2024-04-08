@@ -38,6 +38,7 @@
         <item name="cursorColor">@color/black</item>
         <item name="android:textColorHint">@color/black50</item>
         <item name="android:textColorHighlight">@color/white</item>
+        <item name="android:textColor">@color/black</item>
 
     </style>
 
