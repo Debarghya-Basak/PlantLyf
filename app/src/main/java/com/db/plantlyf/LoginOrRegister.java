@@ -71,6 +71,13 @@ public class LoginOrRegister extends AppCompatActivity {
             public void onClick(View v) {showRegisterSet();}
         });
 
+        binding.submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSetProfilePictureSet();
+            }
+        });
+
         binding.registerLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {showLoginSet();}
@@ -84,6 +91,24 @@ public class LoginOrRegister extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    private void showSetProfilePictureSet(){
+
+        binding.registerContainerLL.animate().alpha(0).setDuration(500).start();
+
+        navigation = "SetProfilePicture";
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                binding.registerContainerLL.setVisibility(View.GONE);
+                binding.setProfilePictureContainerLL.setVisibility(View.VISIBLE);
+                binding.setProfilePictureContainerLL.animate().alpha(1).setDuration(500).start();
+            }
+        },700);
 
     }
 
@@ -142,6 +167,8 @@ public class LoginOrRegister extends AppCompatActivity {
         }
         else if(navigation.equals("Login"))
             binding.loginContainerLL.animate().alpha(0).setDuration(500).start();
+        else if(navigation.equals("SetProfilePicture"))
+            binding.setProfilePictureContainerLL.animate().alpha(0).setDuration(500).start();
 
         navigation = "Register";
 
@@ -198,6 +225,9 @@ public class LoginOrRegister extends AppCompatActivity {
     public void onBackPressed() {
         if(navigation.equals("LoginOrRegister")) {
             super.onBackPressed();
+        }
+        else if(navigation.equals("SetProfilePicture")){
+            showRegisterSet();
         }
         else {
             showLoginRegisterSet();

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282753961538",
+    "project_id": "plantlyf-ssd",
+    "storage_bucket": "plantlyf-ssd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282753961538:android:0c6cd65381eba651cae7db",
+        "android_client_info": {
+          "package_name": "com.db.plantlyf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS_7Q8if3w2JEAGgT2m5V8dkTIk5i-IT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,7 +19,7 @@
             android:id="@+id/TempBgImageIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/tempbgvideo"/>
+            android:background="@drawable/tempbgvideo" />
 
         <VideoView
             android:id="@+id/LoginOrRegisterBgVV"
@@ -46,11 +46,12 @@
         android:id="@+id/loginOrRegister_appNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
 
-        android:text="PLANTLYF"
+        android:text="@string/app_name"
+        android:textAllCaps="true"
         android:gravity="center_horizontal"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textStyle="bold"
         android:letterSpacing="0.25"
 
@@ -67,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:visibility="gone"
+        android:visibility="visible"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,9 +119,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="PLANTLYF"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
             android:gravity="center_horizontal"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
 
@@ -133,7 +135,7 @@
 
             android:text="LOGIN"
             android:gravity="center_horizontal"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
             style="@style/textColor"/>
@@ -195,7 +197,7 @@
 
             android:text="or Register"
             android:gravity="center_horizontal"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
 
             style="@style/textColor"/>
@@ -208,7 +210,7 @@
 
             android:text="Forgot Password ?"
             android:gravity="center_horizontal"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
 
             style="@style/textColor"/>
@@ -233,9 +235,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="PLANTLYF"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
             android:gravity="center_horizontal"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
 
@@ -248,7 +251,7 @@
 
             android:text="REGISTER"
             android:gravity="center_horizontal"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
             style="@style/textColor"/>
@@ -326,7 +329,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_Btn"
+            android:id="@+id/submit_Btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -334,7 +337,7 @@
             android:layout_marginTop="20dp"
             android:elevation="5dp"
 
-            android:text="REGISTER"
+            android:text="SUBMIT"
 
             style="@style/btnStyle"/>
 
@@ -346,7 +349,7 @@
 
             android:text="already Registered ? Login"
             android:gravity="center_horizontal"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
 
             style="@style/textColor"/>
@@ -354,14 +357,13 @@
 
     </LinearLayout>
 
-    <!--    TODO: CHANGE VISIVILITY TO GONE-->
     <LinearLayout
-        android:id="@+id/profilePicture_containerLL"
+        android:id="@+id/setProfilePicture_containerLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:visibility="visible"
-        android:alpha="1"
+        android:visibility="gone"
+        android:alpha="0"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -373,7 +375,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="PLANTLYF"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
             android:gravity="center_horizontal"
             android:textSize="50dp"
             android:textStyle="bold"
@@ -388,7 +391,7 @@
 
             android:text="REGISTER"
             android:gravity="center_horizontal"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:letterSpacing="0.25"
             style="@style/textColor"/>
@@ -425,23 +428,24 @@
 
                 android:layout_gravity="bottom|end"
 
-                style="@style/materialCard">
+                style="@style/editProfileMaterialCard">
 
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="10dp"
 
-                    android:background="@drawable/default_profile_picture"
+                    android:background="@drawable/edit_profile_picture"
 
-                    style="@style/profilePictureImageView" />
+                    style="@style/editProfilePictureImageView"/>
 
             </com.google.android.material.card.MaterialCardView>
 
         </FrameLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerProfilePicture_Btn"
+            android:id="@+id/register_Btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -453,18 +457,6 @@
 
             style="@style/btnStyle"/>
 
-        <TextView
-            android:id="@+id/skipProfilePicture_registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-
-            android:text="Skip for now ?"
-            android:gravity="center_horizontal"
-            android:textSize="15dp"
-            android:textStyle="bold"
-
-            style="@style/textColor"/>
 
     </LinearLayout>
 
