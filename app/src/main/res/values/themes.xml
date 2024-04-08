@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PlantLyf" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Base.Theme.PlantLyf" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
@@ -11,20 +11,32 @@
 
     <style name="Theme.PlantLyf" parent="Base.Theme.PlantLyf" />
 
+    <style name="appNameTextColor" parent="Widget.AppCompat.TextView">
+
+        <item name="android:textColor">@color/white60</item>
+
+    </style>
+
+    <style name="appNameTextColorInverse" parent="Widget.AppCompat.TextView">
+
+        <item name="android:textColor">@color/black60</item>
+
+    </style>
+
     <style name="loginRegisterEditTextLayout" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense">
 
-        <item name="boxStrokeColor">@color/black</item>
+        <item name="boxStrokeColor">@color/white</item>
         <item name="boxStrokeWidth">3dp</item>
         <item name="hintTextColor">@color/white</item>
         <item name="hintEnabled">true</item>
         <item name="hintAnimationEnabled">true</item>
-        <item name="boxBackgroundColor">#80000000</item>
+        <item name="boxBackgroundColor">@color/white50</item>
         <item name="boxCornerRadiusTopStart">20dp</item>
         <item name="boxCornerRadiusTopEnd">20dp</item>
         <item name="boxCornerRadiusBottomStart">20dp</item>
         <item name="boxCornerRadiusBottomEnd">20dp</item>
         <item name="cursorColor">@color/black</item>
-        <item name="android:textColorHint">#AEFFFFFF</item>
+        <item name="android:textColorHint">@color/black50</item>
         <item name="android:textColorHighlight">@color/white</item>
 
     </style>
@@ -32,10 +44,11 @@
     <style name="loginRegisterButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
 
         <item name="strokeWidth">2dp</item>
-        <item name="strokeColor">#99000000</item>
-        <item name="backgroundTint">#1B000000</item>
-        <item name="rippleColor">#5C000000</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="backgroundTint">@color/white80</item>
+        <item name="rippleColor">@color/rippleBlack</item>
         <item name="cornerRadius">20dp</item>
+        <item name="android:textColor">@color/black</item>
 
     </style>
 </resources>

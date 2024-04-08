@@ -27,9 +27,9 @@
         android:background="@drawable/global_overlay_plantlyf_bg_video"/>
 
     <View
+        android:id="@+id/containerBg_V"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/global_container_bg"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,9 +60,10 @@
             android:textSize="30sp"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textColor="#99FFFFFF"
             android:alpha="1"
-            android:visibility="visible"/>
+            android:visibility="visible"
+
+            style="@style/appNameTextColorInverse"/>
 
         <TextView
             android:id="@+id/appNameTV"
@@ -74,10 +75,10 @@
             android:textSize="35sp"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textColor="#99FFFFFF"
             android:letterSpacing="0.15"
             android:alpha="0"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            style="@style/appNameTextColorInverse"/>
         <!--            android:textColor="#9526A30E"-->
 
 
@@ -117,9 +118,9 @@
             android:text="Hi Debarghya"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="#99FFFFFF"
             android:visibility="gone"
             android:alpha="0"
+            style="@style/appNameTextColorInverse"
             />
 
 
@@ -131,8 +132,9 @@
             android:text="Debarghya"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="#99FFFFFF"
             android:alpha="1"
+
+            style="@style/appNameTextColorInverse"
             />
 
 

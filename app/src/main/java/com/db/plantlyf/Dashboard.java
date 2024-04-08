@@ -1,19 +1,18 @@
 package com.db.plantlyf;
 
+import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.VideoView;
+
+import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivityDashboardBinding;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -32,8 +31,19 @@ public class Dashboard extends AppCompatActivity {
 //            return insets;
 //        });
 
+        initializeContainerBg();
         showGreetings();
         startBgVideo();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void initializeContainerBg() {
+
+        if(DarkModeStatus.isDarkModeEnabled(this))
+            binding.containerBgV.setBackground(getDrawable(R.drawable.global_container_bg_dark));
+        else
+            binding.containerBgV.setBackground(getDrawable(R.drawable.global_container_bg_light));
+
     }
 
     private void showGreetings() {
@@ -50,7 +60,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void run() {
                 binding.greetingsTV.animate().alpha(0).setDuration(500).start();
-                binding.userFirstNameTV.animate().alpha(0).translationXBy(100).setDuration(300).start();
+                binding.userFirstNameTV.animate().alpha(0).translationXBy(100).setDuration(500).start();
 
             }
         },2000);
@@ -62,7 +72,7 @@ public class Dashboard extends AppCompatActivity {
                 binding.appNameTV.setVisibility(View.VISIBLE);
                 binding.userFirstNameTV.setVisibility(View.GONE);
                 binding.hiUserFirstNameTV.setVisibility(View.VISIBLE);
-                binding.hiUserFirstNameTV.animate().alpha(1).translationXBy(100).setDuration(300).start();
+                binding.hiUserFirstNameTV.animate().alpha(1).translationXBy(100).setDuration(500).start();
                 binding.appNameTV.animate().alpha(1).setDuration(500).start();
             }
         },2500);

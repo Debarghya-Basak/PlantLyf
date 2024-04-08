@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+<!--    Light mode-->
     <color name="white">#FFFFFFFF</color>
+    <color name="white80">#CCFFFFFF</color>
+    <color name="white60">#99FFFFFF</color>
+    <color name="white50">#80FFFFFF</color>
+    <color name="rippleBlack">#5C000000</color>
+
+<!--    Dark Mode-->
+    <color name="black">#FF000000</color>
+    <color name="black80">#CC000000</color>
+    <color name="black60">#99000000</color>
+    <color name="black50">#80000000</color>
+
+
 </resources>

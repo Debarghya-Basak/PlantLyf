@@ -50,14 +50,15 @@
         android:text="PLANTLYF"
         android:gravity="center_horizontal"
         android:textSize="50dp"
-        android:textColor="#95000000"
         android:textStyle="bold"
         android:letterSpacing="0.25"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+
+        style="@style/appNameTextColor"/>
 
     <LinearLayout
         android:id="@+id/loginOrRegister_btnLL"
@@ -80,7 +81,6 @@
             android:layout_margin="10dp"
 
             android:text="LOGIN"
-            android:textColor="@color/white"
             android:elevation="5dp"
 
             style="@style/loginRegisterButton"/>
@@ -92,7 +92,6 @@
             android:layout_margin="10dp"
 
             android:text="REGISTER"
-            android:textColor="@color/white"
             android:elevation="5dp"
 
             style="@style/loginRegisterButton"/>
@@ -120,9 +119,10 @@
             android:text="PLANTLYF"
             android:gravity="center_horizontal"
             android:textSize="50dp"
-            android:textColor="#95000000"
             android:textStyle="bold"
-            android:letterSpacing="0.25" />
+            android:letterSpacing="0.25"
+
+            style="@style/appNameTextColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -132,9 +132,9 @@
             android:text="LOGIN"
             android:gravity="center_horizontal"
             android:textSize="30dp"
-            android:textColor="#95000000"
             android:textStyle="bold"
-            android:letterSpacing="0.25" />
+            android:letterSpacing="0.25"
+            style="@style/appNameTextColor"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -184,7 +184,6 @@
             android:elevation="5dp"
 
             android:text="LOGIN"
-            android:textColor="@color/white"
 
             style="@style/loginRegisterButton"/>
 
@@ -197,8 +196,9 @@
             android:text="or Register"
             android:gravity="center_horizontal"
             android:textSize="15dp"
-            android:textColor="#95000000"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+
+            style="@style/appNameTextColor"/>
 
         <TextView
             android:id="@+id/login_ForgotpwBtn"
@@ -209,8 +209,9 @@
             android:text="Forgot Password ?"
             android:gravity="center_horizontal"
             android:textSize="15dp"
-            android:textColor="#95000000"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+
+            style="@style/appNameTextColor"/>
 
     </LinearLayout>
 
@@ -235,9 +236,10 @@
             android:text="PLANTLYF"
             android:gravity="center_horizontal"
             android:textSize="50dp"
-            android:textColor="#95000000"
             android:textStyle="bold"
-            android:letterSpacing="0.25" />
+            android:letterSpacing="0.25"
+
+            style="@style/appNameTextColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -247,9 +249,9 @@
             android:text="REGISTER"
             android:gravity="center_horizontal"
             android:textSize="30dp"
-            android:textColor="#95000000"
             android:textStyle="bold"
-            android:letterSpacing="0.25" />
+            android:letterSpacing="0.25"
+            style="@style/appNameTextColor"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -337,7 +339,6 @@
             android:elevation="5dp"
 
             android:text="REGISTER"
-            android:textColor="@color/white"
 
             style="@style/loginRegisterButton"/>
 
@@ -350,8 +351,9 @@
             android:text="already Registered ? Login"
             android:gravity="center_horizontal"
             android:textSize="15dp"
-            android:textColor="#95000000"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+
+            style="@style/appNameTextColor"/>
 
 
     </LinearLayout>
