@@ -47,5 +47,6 @@ dependencies {
     implementation libs.media3.ui
     implementation libs.tensorflow.lite
     implementation libs.circleimageview
+    implementation libs.vanniktech.android.image.cropper
 
 }

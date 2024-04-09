@@ -5,9 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import com.canhub.cropper.*;
+
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +23,8 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +40,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,8 +107,8 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userRegisterAuth();
-//                startSetProfilePicturePage();
+//                userRegisterAuth();
+                startSetProfilePicturePage();
             }
         });
 
@@ -251,6 +255,17 @@ public class LoginOrRegister extends AppCompatActivity {
 
     //SET PROFILE PICTURE PAGE------------------------------------
     private final int PICK_IMAGE_REQUEST = 1;
+    private final int REQUEST_CROP_ICON = 2;
+
+//    ActivityResultLauncher<Intent> getImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+//        if (result.getResultCode() == Activity.RESULT_OK) {
+//            Intent data = result.getData();
+//            if (data != null && data.getData() != null) {
+//                Uri imageUri = data.getData();
+//                launchImageCropper(imageUri);
+//            }
+//        }
+//    });
 
     private void startSetProfilePicturePage(){
 
@@ -325,7 +340,15 @@ public class LoginOrRegister extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+//        getImage.launch(intent);
     }
+
+//    private void launchImageCropper(Uri uri) {
+//
+//        Intent intent = new Intent(LoginOrRegister.this, CropImage.class);
+//        intent.putExtra("ImageUri", uri.toString());
+//        startActivity(intent);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -335,12 +358,15 @@ public class LoginOrRegister extends AppCompatActivity {
             Uri selectedImageUri = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
-                Data.USER_PROFILE_PICTURE = BitmapStringConverter.bitmapToString(bitmap);
-                binding.userProfilePicture.setImageBitmap(bitmap);
+
+                Bitmap photo = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                Data.USER_PROFILE_PICTURE = BitmapStringConverter.bitmapToString(photo);
+                binding.userProfilePicture.setImageBitmap(photo);
+
             } catch (IOException e) {
-                Log.e("Image picker : ", e.getLocalizedMessage());
+                Log.d("PLANTLYF : ", "Image picker : " + e.getLocalizedMessage());
             }
+
         }
     }
 

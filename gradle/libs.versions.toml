@@ -1,5 +1,7 @@
 [versions]
 agp = "8.3.0"
+androidImageCropper = "2.8"
+androidImageCropperVersion = "2.8.0"
 blurkit = "1.1.1"
 circleimageview = "3.1.0"
 junit = "4.13.2"
@@ -16,8 +18,11 @@ tensorflowLiteTaskVisionPlayServices = "0.4.2"
 googleServices = "4.4.1"
 firebaseAuth = "22.3.1"
 firebaseFirestore = "24.11.0"
+vanniktechAndroidImageCropper = "4.5.0"
 
 [libraries]
+android-image-cropper = { module = "com.theartofdev.edmodo:android-image-cropper", version.ref = "androidImageCropper" }
+android-image-cropper-v280 = { module = "com.theartofdev.edmodo:android-image-cropper", version.ref = "androidImageCropperVersion" }
 blurkit = { module = "io.alterac.blurkit:blurkit", version.ref = "blurkit" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -36,6 +41,7 @@ tensorflow-lite-task-vision-play-services = { module = "org.tensorflow:tensorflo
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+vanniktech-android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "vanniktechAndroidImageCropper" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
