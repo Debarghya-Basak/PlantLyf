@@ -270,7 +270,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:hint="Enter your name"/>
+                android:inputType="textPersonName"
+
+                android:hint="Enter your full name"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -288,6 +290,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
+                android:inputType="textEmailAddress"
                 android:hint="Enter your email"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -306,6 +309,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
+                android:inputType="textPassword"
                 android:hint="Enter your password"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -324,6 +328,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
+                android:inputType="textPassword"
                 android:hint="Confirm your password"/>
 
         </com.google.android.material.textfield.TextInputLayout>

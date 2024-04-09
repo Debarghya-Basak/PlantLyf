@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -28,13 +30,26 @@ import androidx.media3.common.MediaItem;
 import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.exoplayer.SimpleExoPlayer;
 
+import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.databinding.ActivityLoginOrRegisterBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginOrRegister extends AppCompatActivity {
 
-    ActivityLoginOrRegisterBinding binding;
+    private ActivityLoginOrRegisterBinding binding;
     private boolean onResumeFlag = false;
     private String navigation = "LoginOrRegister";
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +74,14 @@ public class LoginOrRegister extends AppCompatActivity {
             }
         });
 
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLoginAuth();
+                Toast.makeText(LoginOrRegister.this, "LOGIN", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding.loginOrRegisterRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +97,7 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSetProfilePictureSet();
+                userRegisterAuth();
             }
         });
 
@@ -86,12 +109,99 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userRegisterProfilePictureAuth();
+                Toast.makeText(LoginOrRegister.this, "REGISTER PP", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
 //                Bundle b = ActivityOptions.makeSceneTransitionAnimation(LoginOrRegister.this).toBundle();
                 startActivity(intent);
             }
         });
 
+    }
+
+    private void initializeFirebaseAuth() {
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    private void initializeFirebaseFirestore(){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+    }
+
+    private void userRegisterAuth() {
+        initializeFirebaseAuth();
+
+        String userFullName = String.valueOf(binding.registerNameET.getText());
+        String userEmail = String.valueOf(binding.registerEmailET.getText());
+        String userPassword = String.valueOf(binding.registerPasswordET.getText());
+        String userConfirmPassword = String.valueOf(binding.registerConfirmpwET.getText());
+
+        if(invalidUserName(userFullName)){
+            Toast.makeText(this, "Please enter full name", Toast.LENGTH_SHORT).show();
+        }
+        else if(invalidUserEmail(userEmail)){
+            Toast.makeText(this, "Please enter correct email", Toast.LENGTH_SHORT).show();
+        }
+        else if(!userPassword.equals(userConfirmPassword)){
+            Toast.makeText(this, "Confirm password does not match", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Log.d("Firebase Authentication : ", authResult.getUser().getUid());
+
+                            Data.UID = authResult.getUser().getUid();
+                            Data.USERFULLNAME = userFullName;
+                            Data.USEREMAIL = userEmail;
+                            Data.USERPASSWORD = userPassword;
+
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("fullName", Data.USERFULLNAME);
+                            data.put("email", Data.USEREMAIL);
+
+                            initializeFirebaseFirestore();
+                            firebaseFirestore.collection("userData")
+                                            .document(Data.UID).set(data)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
+
+
+                            Toast.makeText(LoginOrRegister.this, "REGISTER", Toast.LENGTH_SHORT).show();
+                            showSetProfilePictureSet();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LoginOrRegister.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private boolean invalidUserEmail(String userEmail) {
+        return false;
+    }
+
+    private boolean invalidUserName(String userFullName) {
+        return false;
+    }
+
+    private void userRegisterProfilePictureAuth() {
+    }
+
+    private void userLoginAuth() {
     }
 
     private void showSetProfilePictureSet(){
@@ -178,6 +288,7 @@ public class LoginOrRegister extends AppCompatActivity {
                 binding.loginOrRegisterBtnLL.setVisibility(View.GONE);
                 binding.loginOrRegisterAppNameTV.setVisibility(View.GONE);
                 binding.loginContainerLL.setVisibility(View.GONE);
+                binding.setProfilePictureContainerLL.setVisibility(View.GONE);
                 binding.registerContainerLL.setVisibility(View.VISIBLE);
                 binding.registerContainerLL.animate().alpha(1).setDuration(500).start();
             }
