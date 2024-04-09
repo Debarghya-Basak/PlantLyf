@@ -155,6 +155,7 @@ public class LoginOrRegister extends AppCompatActivity {
             public void run() {
                 binding.loginContainerLL.setVisibility(View.GONE);
                 binding.registerContainerLL.setVisibility(View.GONE);
+                binding.setProfilePictureContainerLL.setVisibility(View.GONE);
                 binding.loginOrRegisterBtnLL.setVisibility(View.VISIBLE);
                 binding.loginOrRegisterAppNameTV.setVisibility(View.VISIBLE);
                 binding.loginOrRegisterAppNameTV.animate().alpha(1).setDuration(500).start();
@@ -424,6 +425,8 @@ public class LoginOrRegister extends AppCompatActivity {
         }
         else if(navigation.equals("Register"))
             binding.registerContainerLL.animate().alpha(0).setDuration(500).start();
+        else if(navigation.equals("SetProfilePicture"))
+            binding.setProfilePictureContainerLL.animate().alpha(0).setDuration(500).start();
 
         navigation = "Login";
 
@@ -440,6 +443,7 @@ public class LoginOrRegister extends AppCompatActivity {
                 binding.loginOrRegisterBtnLL.setVisibility(View.GONE);
                 binding.loginOrRegisterAppNameTV.setVisibility(View.GONE);
                 binding.registerContainerLL.setVisibility(View.GONE);
+                binding.setProfilePictureContainerLL.setVisibility(View.GONE);
                 binding.loginContainerLL.setVisibility(View.VISIBLE);
                 binding.loginContainerLL.animate().alpha(1).setDuration(500).start();
             }
