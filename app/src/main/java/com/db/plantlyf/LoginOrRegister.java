@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -141,6 +142,9 @@ public class LoginOrRegister extends AppCompatActivity {
         else if(invalidUserEmail(userEmail)){
             Toast.makeText(this, "Please enter correct email", Toast.LENGTH_SHORT).show();
         }
+        else if(invalidUserPassword(userPassword)){
+            Toast.makeText(this, "Password is invalid", Toast.LENGTH_SHORT).show();
+        }
         else if(!userPassword.equals(userConfirmPassword)){
             Toast.makeText(this, "Confirm password does not match", Toast.LENGTH_SHORT).show();
         }
@@ -166,19 +170,17 @@ public class LoginOrRegister extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-
+                                                    Toast.makeText(LoginOrRegister.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                                    showSetProfilePictureSet();
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-
+                                                    Toast.makeText(LoginOrRegister.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                                    firebaseAuth.getCurrentUser().delete();
                                                 }
                                             });
-
-
-                            Toast.makeText(LoginOrRegister.this, "REGISTER", Toast.LENGTH_SHORT).show();
-                            showSetProfilePictureSet();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -188,6 +190,10 @@ public class LoginOrRegister extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    private boolean invalidUserPassword(String userPassword) {
+        return false;
     }
 
     private boolean invalidUserEmail(String userEmail) {
