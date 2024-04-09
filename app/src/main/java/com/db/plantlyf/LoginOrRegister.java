@@ -91,7 +91,7 @@ public class LoginOrRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 userLoginAuth();
-                Toast.makeText(LoginOrRegister.this, "LOGIN", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginOrRegister.this, "LOGIN", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,8 +107,8 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                userRegisterAuth();
-                startSetProfilePicturePage();
+                userRegisterAuth();
+//                startSetProfilePicturePage();
             }
         });
 
@@ -123,10 +123,8 @@ public class LoginOrRegister extends AppCompatActivity {
         binding.addProfilePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginOrRegister.this, "Profile photo button clicked", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(LoginOrRegister.this, "Profile photo button clicked", Toast.LENGTH_SHORT).show();
                 setProfilePicture();
-
             }
         });
 
@@ -147,6 +145,8 @@ public class LoginOrRegister extends AppCompatActivity {
             binding.loginContainerLL.animate().alpha(0).setDuration(500).start();
         else if(navigation.equals("Register"))
             binding.registerContainerLL.animate().alpha(0).setDuration(500).start();
+        else if(navigation.equals("SetProfilePicture"))
+            binding.setProfilePictureContainerLL.animate().alpha(0).setDuration(500).start();
 
         navigation = "LoginOrRegister";
 
@@ -168,11 +168,24 @@ public class LoginOrRegister extends AppCompatActivity {
     private void startRegisterPage() {
 
         if(navigation.equals("LoginOrRegister")) {
+            binding.loginEmailET.setText("");
+            binding.loginPasswordET.setText("");
+            binding.registerNameET.setText("");
+            binding.registerEmailET.setText("");
+            binding.registerPasswordET.setText("");
+            binding.registerConfirmpwET.setText("");
             binding.loginOrRegisterAppNameTV.animate().alpha(0).setDuration(500).start();
             binding.loginOrRegisterBtnLL.animate().alpha(0).setDuration(500).start();
         }
-        else if(navigation.equals("Login"))
+        else if(navigation.equals("Login")) {
+            binding.loginEmailET.setText("");
+            binding.loginPasswordET.setText("");
+            binding.registerNameET.setText("");
+            binding.registerEmailET.setText("");
+            binding.registerPasswordET.setText("");
+            binding.registerConfirmpwET.setText("");
             binding.loginContainerLL.animate().alpha(0).setDuration(500).start();
+        }
         else if(navigation.equals("SetProfilePicture"))
             binding.setProfilePictureContainerLL.animate().alpha(0).setDuration(500).start();
 
@@ -316,10 +329,11 @@ public class LoginOrRegister extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(LoginOrRegister.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginOrRegister.this, "Registration Successful\nLogin To Continue", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
-                        startActivity(intent);
+                        startLoginRegisterPage();
+//                        Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
+//                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -413,6 +427,13 @@ public class LoginOrRegister extends AppCompatActivity {
 
         navigation = "Login";
 
+        binding.loginEmailET.setText("");
+        binding.loginPasswordET.setText("");
+        binding.registerNameET.setText("");
+        binding.registerEmailET.setText("");
+        binding.registerPasswordET.setText("");
+        binding.registerConfirmpwET.setText("");
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -460,6 +481,7 @@ public class LoginOrRegister extends AppCompatActivity {
                                                         Data.USER_FULLNAME = documentSnapshot.getString("full_name");
                                                         Data.USER_PROFILE_PICTURE =  documentSnapshot.getString("profile_picture");
 
+                                                        Toast.makeText(LoginOrRegister.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
                                                         startActivity(intent);
                                                     }

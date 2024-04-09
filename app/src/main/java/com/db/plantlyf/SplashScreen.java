@@ -80,7 +80,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 finish();
             }
-        }, 3000);
+        }, 5000);
     }
 
 }

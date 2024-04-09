@@ -1,6 +1,7 @@
 package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,7 +48,7 @@ public class Dashboard extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void showProfilePicture(){
         if(Data.USER_PROFILE_PICTURE.equals("no_profile_picture"))
-            binding.profilePicture.setImageDrawable(getDrawable(R.drawable.default_profile_picture));
+            binding.profilePicture.setBackground(getDrawable(R.drawable.default_profile_picture));
         else
             binding.profilePicture.setImageBitmap(BitmapStringConverter.stringToBitmap(Data.USER_PROFILE_PICTURE));
     }
@@ -67,10 +68,11 @@ public class Dashboard extends AppCompatActivity {
 
         String time = "evening";
         String greetingsText = "Good " + time;
-        String userFirstName = "Debarghya";
+        String userFirstName = Data.USER_FULLNAME.substring(0, Data.USER_FULLNAME.indexOf(' '));
 
         binding.greetingsTV.setText(greetingsText);
         binding.userFirstNameTV.setText(userFirstName);
+        binding.hiUserFirstNameTV.setText("Hi " + userFirstName);
 
         new Handler().postDelayed(new Runnable() {
             @Override
