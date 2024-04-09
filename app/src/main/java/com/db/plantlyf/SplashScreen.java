@@ -3,6 +3,7 @@ package com.db.plantlyf;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.VideoView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivitySplashScreenBinding;
 
@@ -26,6 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         startSplashScreen();
+        loadData();
         startLoginOrRegisterActivity();
 
     }
@@ -50,6 +54,12 @@ public class SplashScreen extends AppCompatActivity {
             videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.plantlyfsplashscreenlightmode);
 
         videoView.start();
+
+    }
+
+    private void loadData() {
+
+        Data.ANDROIDSDKVERSION = Build.VERSION.SDK_INT;
 
     }
 

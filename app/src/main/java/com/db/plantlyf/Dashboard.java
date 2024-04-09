@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.VideoView;
 
+import com.db.plantlyf.AppData.Data;
+import com.db.plantlyf.Utilities.BitmapStringConverter;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivityDashboardBinding;
 import androidx.activity.EdgeToEdge;
@@ -31,9 +33,23 @@ public class Dashboard extends AppCompatActivity {
 //            return insets;
 //        });
 
+        initializePage();
+
+    }
+
+    private void initializePage() {
         initializeContainerBg();
         showGreetings();
         startBgVideo();
+        showProfilePicture();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void showProfilePicture(){
+        if(Data.USER_PROFILE_PICTURE.equals("no_profile_picture"))
+            binding.profilePicture.setImageDrawable(getDrawable(R.drawable.default_profile_picture));
+        else
+            binding.profilePicture.setImageBitmap(BitmapStringConverter.stringToBitmap(Data.USER_PROFILE_PICTURE));
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
