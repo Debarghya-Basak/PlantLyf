@@ -48,5 +48,6 @@ dependencies {
     implementation libs.tensorflow.lite
     implementation libs.circleimageview
     implementation libs.vanniktech.android.image.cropper
+    implementation libs.lottie
 
 }

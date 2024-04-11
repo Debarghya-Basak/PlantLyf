@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import com.canhub.cropper.*;
 
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,8 +21,6 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,6 +28,7 @@ import androidx.core.content.ContextCompat;
 
 import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.BitmapStringConverter;
+import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityLoginOrRegisterBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,8 +37,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -451,7 +446,13 @@ public class LoginOrRegister extends AppCompatActivity {
 
     }
 
+    private DialogBox loadingDialogBox;
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void userLoginAuth() {
+
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_progress_dialog_box);
+
+        loadingDialogBox.showDialog();
 
         initializeFirebaseAuth();
 
@@ -486,6 +487,8 @@ public class LoginOrRegister extends AppCompatActivity {
                                                         Data.USER_PROFILE_PICTURE =  documentSnapshot.getString("profile_picture");
 
                                                         Toast.makeText(LoginOrRegister.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                                                        loadingDialogBox.dismissDialog();
                                                         Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
                                                         startActivity(intent);
                                                     }
