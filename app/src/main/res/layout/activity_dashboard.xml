@@ -195,6 +195,7 @@
                     android:gravity="center">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/soilIconIV"
                         android:layout_width="70dp"
                         android:layout_height="70dp" />
 
@@ -227,10 +228,9 @@
                     android:gravity="center">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/plantDiseaseIconIV"
                         android:layout_width="70dp"
-                        android:layout_height="70dp"
-
-                        android:src="@drawable/global_plant_disease_icon_light" />
+                        android:layout_height="70dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -273,10 +273,9 @@
                     android:gravity="center">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/plantWaterIconIV"
                         android:layout_width="70dp"
-                        android:layout_height="70dp"
-
-                        android:src="@drawable/global_plant_water_icon_light" />
+                        android:layout_height="70dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -307,10 +306,9 @@
                     android:gravity="center">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/plantNutritionIconIV"
                         android:layout_width="70dp"
-                        android:layout_height="70dp"
-
-                        android:src="@drawable/global_plant_nutrition_icon_light" />
+                        android:layout_height="70dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"

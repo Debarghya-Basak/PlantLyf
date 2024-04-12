@@ -40,9 +40,27 @@ public class Dashboard extends AppCompatActivity {
 
     private void initializePage() {
         initializeContainerBg();
+        initializeCardIcons();
         showGreetings();
         startBgVideo();
         showProfilePicture();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void initializeCardIcons(){
+
+        if(DarkModeStatus.isDarkModeEnabled(this)){
+            binding.soilIconIV.setBackground(getDrawable(R.drawable.global_soil_icon_dark));
+            binding.plantDiseaseIconIV.setBackground(getDrawable(R.drawable.global_plant_disease_icon_dark));
+            binding.plantWaterIconIV.setBackground(getDrawable(R.drawable.global_plant_water_icon_dark));
+            binding.plantNutritionIconIV.setBackground(getDrawable(R.drawable.global_plant_nutrition_icon_dark));
+        }
+        else{
+            binding.soilIconIV.setBackground(getDrawable(R.drawable.global_soil_icon_light));
+            binding.plantDiseaseIconIV.setBackground(getDrawable(R.drawable.global_plant_disease_icon_light));
+            binding.plantWaterIconIV.setBackground(getDrawable(R.drawable.global_plant_water_icon_light));
+            binding.plantNutritionIconIV.setBackground(getDrawable(R.drawable.global_plant_nutrition_icon_light));
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
