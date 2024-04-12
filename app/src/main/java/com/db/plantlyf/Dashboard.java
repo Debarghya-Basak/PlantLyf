@@ -107,7 +107,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void run() {
                 binding.greetingsTV.animate().alpha(0).setDuration(500).start();
-                binding.userFirstNameTV.animate().alpha(0).translationXBy(100).setDuration(500).start();
+                binding.userFirstNameTV.animate().alpha(0).setDuration(200).start();
 
             }
         },2000);
@@ -119,7 +119,7 @@ public class Dashboard extends AppCompatActivity {
                 binding.appNameTV.setVisibility(View.VISIBLE);
                 binding.userFirstNameTV.setVisibility(View.GONE);
                 binding.hiUserFirstNameTV.setVisibility(View.VISIBLE);
-                binding.hiUserFirstNameTV.animate().alpha(1).translationXBy(100).setDuration(500).start();
+                binding.hiUserFirstNameTV.animate().alpha(1).setDuration(200).start();
                 binding.appNameTV.animate().alpha(1).setDuration(500).start();
             }
         },2500);

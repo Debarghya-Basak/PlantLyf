@@ -1,15 +1,19 @@
 package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,6 +25,8 @@ import com.db.plantlyf.databinding.ActivityScanSoilBinding;
 public class ScanSoil extends AppCompatActivity {
 
     private ActivityScanSoilBinding binding;
+    private boolean onResumeFlag = false;
+    private final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +39,35 @@ public class ScanSoil extends AppCompatActivity {
     }
 
     private void initializePage() {
+        initializeButton();
         initializeContainerBg();
         initializeRecommendedPlantListLL();
         startBgVideo();
+    }
+
+    private void initializeButton(){
+        binding.captureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+
+            Bundle extras = data.getExtras();
+            Bitmap soilImage = (Bitmap) extras.get("data");
+
+            binding.captureSoilPreviewIV.setImageBitmap(soilImage);
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -92,6 +124,15 @@ public class ScanSoil extends AppCompatActivity {
                 videoView.start();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        if(onResumeFlag)
+            startBgVideo();
+        else
+            onResumeFlag = true;
+        super.onResume();
     }
 
 }
