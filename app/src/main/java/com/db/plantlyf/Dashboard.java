@@ -1,6 +1,7 @@
 package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -39,11 +40,21 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void initializePage() {
+        initializeButtons();
         initializeContainerBg();
         initializeCardIcons();
         showGreetings();
         startBgVideo();
         showProfilePicture();
+    }
+
+    private void initializeButtons(){
+        binding.scanSoilMC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this, ScanSoil.class));
+            }
+        });
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

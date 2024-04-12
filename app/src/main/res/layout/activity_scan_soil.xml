@@ -7,4 +7,133 @@
     android:layout_height="match_parent"
     tools:context=".ScanSoil">
 
+    <VideoView
+        android:id="@+id/dashboardBgVV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/global_overlay_plantlyf_bg_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/containerBg_V"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCard"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:cardCornerRadius="200dp"
+
+        style="@style/materialCardInverse">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            />
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/predictedSoilTypeTV"
+        style="@style/materialCardTextColorInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/materialCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
+
+        android:text="This is alluvial soil"
+        android:textSize="25sp"
+        />
+
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/materialCardTextColorInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+
+        android:text="Recommended plants"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/textColorInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recommendedPlantListContainerLL"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+
+        android:text="No plants to display"
+        android:textSize="15sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/recommendedPlantListContainerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/captureBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:orientation="vertical">
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/captureBtn"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+
+        app:cardCornerRadius="100dp"
+
+        style="@style/materialCardInverse">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/captureImageIV"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+
+            android:background="@drawable/global_capture_icon_dark"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
