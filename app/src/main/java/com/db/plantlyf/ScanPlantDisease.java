@@ -21,6 +21,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.db.plantlyf.AiModelHandler.PlantDiseaseClassifier;
 import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.Utilities.DialogBox;
@@ -72,15 +73,16 @@ public class ScanPlantDisease extends AppCompatActivity {
 
         binding.capturePlantDiseasePreviewIV.setImageBitmap(resizedSoilImage);
 
-        SoilTypeClassifier soilTypeClassifier;
+        PlantDiseaseClassifier plantDiseaseClassifier;
 
         int inputImageWidth = 256;
         int inputImageHeight = 256;
-        String[] labels = {"Alluvial", "Black", "Clay", "Red"};
+        String[] labels = {"Apple scab", "Apple Black rot", "Cedar apple rust", "Healthy Apple", "Healthy blueberry", "Healthy Cherry", "Cherry Powdery mildew", "Corn(maize) Cercospora Gray spot", "Corn(maize) Common rust", "Healthy Corn(maize)", "Corn(maize) Northern Leaf Blight", "Grape Black rot", "Grape Esca", "Healthy Grape", "Grape Leaf blight", "Orange Haunglongbing", "Peach Bacterial spot", "Healthy Peach", "Pepper bell Bacterial spot", "Healthy Pepper bell", "Potato Early blight", "Healthy Potato", "Potato Late blight", "Healthy Raspberry", "Healthy Soybean", "Squash Powdery mildew", "Healthy Strawberry", "Strawberry Leaf scorch", "Tomato Bacterial spot", "Tomato Early blight", "Healthy Tomato", "Tomato Late blight", "Tomato Leaf Mold", "Tomato Septoria leaf spot", "Tomato Spider mites", "Tomato Target Spot", "Tomato mosaic virus", "Tomato Yellow Leaf Curl Virus"};
+        //String[] labels = {"Apple___Apple_scab", "Apple___Black_rot", "Apple___Cedar_apple_rust", "Apple___healthy", "Blueberry___healthy", "Cherry_(including_sour)___healthy", "Cherry_(including_sour)___Powdery_mildew", "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot", "Corn_(maize)___Common_rust_", "Corn_(maize)___healthy", "Corn_(maize)___Northern_Leaf_Blight", "Grape___Black_rot", "Grape___Esca_(Black_Measles)", "Grape___healthy", "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)", "Orange___Haunglongbing_(Citrus_greening)", "Peach___Bacterial_spot", "Peach___healthy", "Pepper,_bell___Bacterial_spot", "Pepper,_bell___healthy", "Potato___Early_blight", "Potato___healthy", "Potato___Late_blight", "Raspberry___healthy", "Soybean___healthy", "Squash___Powdery_mildew", "Strawberry___healthy", "Strawberry___Leaf_scorch", "Tomato___Bacterial_spot", "Tomato___Early_blight", "Tomato___healthy", "Tomato___Late_blight", "Tomato___Leaf_Mold", "Tomato___Septoria_leaf_spot", "Tomato___Spider_mites Two-spotted_spider_mite", "Tomato___Target_Spot", "Tomato___Tomato_mosaic_virus", "Tomato___Tomato_Yellow_Leaf_Curl_Virus"};
 
-        soilTypeClassifier = new SoilTypeClassifier(this, inputImageWidth, inputImageHeight, labels);
+        plantDiseaseClassifier = new PlantDiseaseClassifier(this, inputImageWidth, inputImageHeight, labels);
 
-        String predictedLabel = soilTypeClassifier.classifyImage(resizedSoilImage);
+        String predictedLabel = plantDiseaseClassifier.classifyImage(resizedSoilImage);
 
         DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box);
         predictionDialogBox.showDialog();
@@ -89,7 +91,11 @@ public class ScanPlantDisease extends AppCompatActivity {
             @Override
             public void run() {
                 predictionDialogBox.dismissDialog();
-                binding.predictedPlantDiseaseTV.setText("It is " + predictedLabel + " soil");
+
+                if(predictedLabel.contains("Healthy"))
+                    binding.predictedPlantDiseaseTV.setText(predictedLabel);
+                else
+                    binding.predictedPlantDiseaseTV.setText(predictedLabel + " disease");
                 binding.predictedPlantDiseaseTV.animate().alpha(1).start();
             }
         }, 2500);

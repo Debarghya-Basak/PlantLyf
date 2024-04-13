@@ -55,6 +55,13 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(Dashboard.this, ScanSoil.class));
             }
         });
+
+        binding.scanPlantDiseaseMC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this, ScanPlantDisease.class));
+            }
+        });
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

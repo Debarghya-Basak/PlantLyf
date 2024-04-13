@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,11 +20,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
+import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityScanSoilBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ScanSoil extends AppCompatActivity {
 
@@ -82,16 +88,45 @@ public class ScanSoil extends AppCompatActivity {
         DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box);
         predictionDialogBox.showDialog();
 
+        DialogBox downloadingDialogBox = new DialogBox(this, R.layout.global_loading_dialog_box);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 predictionDialogBox.dismissDialog();
                 binding.predictedSoilTypeTV.setText("It is " + predictedLabel + " soil");
                 binding.predictedSoilTypeTV.animate().alpha(1).start();
+
             }
         }, 2500);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                downloadingDialogBox.showDialog();
+                fetchPlantNamesFromDatabase(predictedLabel, downloadingDialogBox);
+            }
+        }, 3000);
 
+
+
+    }
+
+    private void fetchPlantNamesFromDatabase(String predictedLabel, DialogBox downloadingDialogBox) {
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection(Constants.DB_SOILINFO)
+                .document(predictedLabel.toLowerCase())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        ArrayList<String> plants = (ArrayList<String>);
+                        downloadingDialogBox.dismissDialog();
+                        Log.d("PLANTLYF", "ScanSoil : Plant list Array(" +predictedLabel+ ") = " + documentSnapshot.get(Constants.DB_PLANTS));
+                    }
+                });
 
     }
 
