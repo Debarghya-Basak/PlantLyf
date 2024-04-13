@@ -1,9 +1,7 @@
 package com.db.plantlyf;
 
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
@@ -12,7 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.db.plantlyf.AiModelHandler.ImageClassifier;
+import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
 import com.db.plantlyf.databinding.ActivityMainBinding;
 
 import java.io.IOException;
@@ -20,7 +18,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ImageClassifier imageClassifier;
+    private SoilTypeClassifier soilTypeClassifier;
 
 
     @Override
@@ -36,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
             String[] labels = {"Alluvial", "Black", "Clay", "Red"}; // Replace with your class labels
 
             // Create an instance of ImageClassifier
-            imageClassifier = new ImageClassifier(this, inputImageWidth, inputImageHeight, labels);
+            soilTypeClassifier = new SoilTypeClassifier(this, inputImageWidth, inputImageHeight, labels);
 
             // Load the image from the device storage
             int resourceId = R.raw.claysoiltemp;
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
 
             if (bitmap != null) {
-                String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+                String predictedLabel = soilTypeClassifier.classifyImage(bitmap);
 
                 Toast.makeText(this, "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
             }
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
 
                     if (bitmap != null) {
-                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+                        String predictedLabel = soilTypeClassifier.classifyImage(bitmap);
 
                         Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
                     }
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
 
                     if (bitmap != null) {
-                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+                        String predictedLabel = soilTypeClassifier.classifyImage(bitmap);
 
                         Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
                     }
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
 
                     if (bitmap != null) {
-                        String predictedLabel = imageClassifier.classifyImage(bitmap,binding.imageToPredictIV);
+                        String predictedLabel = soilTypeClassifier.classifyImage(bitmap);
 
                         Toast.makeText(getApplicationContext(), "It is " + predictedLabel + " soil", Toast.LENGTH_SHORT).show();
                     }
@@ -101,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (imageClassifier != null) {
-            imageClassifier.close();
+        if (soilTypeClassifier != null) {
+            soilTypeClassifier.close();
         }
     }
 

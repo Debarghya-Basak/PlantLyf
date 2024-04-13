@@ -2,6 +2,7 @@ package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -10,17 +11,19 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
 import com.db.plantlyf.Utilities.DarkModeStatus;
+import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityScanSoilBinding;
+
+import java.io.IOException;
 
 public class ScanSoil extends AppCompatActivity {
 
@@ -50,6 +53,7 @@ public class ScanSoil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                binding.predictedSoilTypeTV.setAlpha(0);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 
@@ -57,17 +61,65 @@ public class ScanSoil extends AppCompatActivity {
         });
     }
 
+    private void predictSoilType(Intent data) throws IOException {
+
+        Bundle extras = data.getExtras();
+        Bitmap soilImage = (Bitmap) extras.get("data");
+        Bitmap resizedSoilImage = resizeBitmap(soilImage, 200, 200);
+
+        binding.captureSoilPreviewIV.setImageBitmap(resizedSoilImage);
+
+        SoilTypeClassifier soilTypeClassifier;
+
+        int inputImageWidth = 256;
+        int inputImageHeight = 256;
+        String[] labels = {"Alluvial", "Black", "Clay", "Red"};
+
+        soilTypeClassifier = new SoilTypeClassifier(this, inputImageWidth, inputImageHeight, labels);
+
+        String predictedLabel = soilTypeClassifier.classifyImage(resizedSoilImage);
+
+        DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box);
+        predictionDialogBox.showDialog();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                predictionDialogBox.dismissDialog();
+                binding.predictedSoilTypeTV.setText("It is " + predictedLabel + " soil");
+                binding.predictedSoilTypeTV.animate().alpha(1).start();
+            }
+        }, 2500);
+
+
+
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
 
-            Bundle extras = data.getExtras();
-            Bitmap soilImage = (Bitmap) extras.get("data");
+            if(data != null) {
+                try {
+                    predictSoilType(data);
+                } catch (IOException e) {}
+            }
+            else
+                Toast.makeText(this, "No Image Captured", Toast.LENGTH_SHORT).show();
 
-            binding.captureSoilPreviewIV.setImageBitmap(soilImage);
         }
+    }
+
+    private Bitmap resizeBitmap(Bitmap soilImage, int width, int height) {
+        return Bitmap.createScaledBitmap(soilImage, convertDpToPixels(width), convertDpToPixels(height), false);
+    }
+
+    private int convertDpToPixels(int dp) {
+        return (int)(dp * Resources.getSystem().getDisplayMetrics().density);
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -78,7 +130,7 @@ public class ScanSoil extends AppCompatActivity {
         float width = displayMetrics.widthPixels;
 
         ViewGroup.LayoutParams layoutParams = binding.recommendedPlantListContainerLL.getLayoutParams();
-        layoutParams.height = (int)((height * 40f)/100f);
+        layoutParams.height = (int)((height * 35f)/100f);
 
         if(DarkModeStatus.isDarkModeEnabled(this))
             binding.captureImageIV.setBackground(getDrawable(R.drawable.global_capture_icon_dark));

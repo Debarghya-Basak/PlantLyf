@@ -3,7 +3,6 @@ package com.db.plantlyf.AiModelHandler;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.ImageView;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -13,7 +12,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
-public class ImageClassifier {
+public class SoilTypeClassifier {
 
     private Interpreter tfliteInterpreter;
     private int inputImageWidth;
@@ -22,7 +21,7 @@ public class ImageClassifier {
     private final String[] labels;
     private final int numLabels;
 
-    public ImageClassifier(Context context, int inputImageWidth, int inputImageHeight, String[] labels) throws IOException {
+    public SoilTypeClassifier(Context context, int inputImageWidth, int inputImageHeight, String[] labels) throws IOException {
         this.inputImageWidth = inputImageWidth;
         this.inputImageHeight = inputImageHeight;
         this.labels = labels;
@@ -54,11 +53,11 @@ public class ImageClassifier {
         return buffer;
     }
 
-    public String classifyImage(Bitmap bitmap, ImageView imageView) {
+    public String classifyImage(Bitmap bitmap) {
         // Resize the input image to the model input shape
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, inputImageWidth, inputImageHeight, true);
 
-        imageView.setImageBitmap(resizedBitmap);
+        //imageView.setImageBitmap(resizedBitmap);
         // Normalize the pixel values to [0, 1] and load them into the input ByteBuffer
         inputBuffer.rewind();
 

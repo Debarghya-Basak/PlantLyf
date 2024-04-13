@@ -69,7 +69,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, LoginOrRegister.class);
+                Intent intent = new Intent(SplashScreen.this, ScanSoil.class);
                 Bundle b = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this).toBundle();
                 startActivity(intent, b);
             }
