@@ -507,6 +507,13 @@ public class LoginOrRegister extends AppCompatActivity {
 
                                                         Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
                                                         startActivity(intent);
+
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                finish();
+                                                            }
+                                                        }, 3000);
                                                     }
                                                 });
 
