@@ -38,23 +38,35 @@ public class DataEntryFirebase extends AppCompatActivity {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
+        String[] labels = {"Apple scab", "Apple Black rot", "Cedar apple rust", "Healthy Apple", "Healthy blueberry", "Healthy Cherry", "Cherry Powdery mildew", "Corn(maize) Cercospora Gray spot", "Corn(maize) Common rust", "Healthy Corn(maize)", "Corn(maize) Northern Leaf Blight", "Grape Black rot", "Grape Esca", "Healthy Grape", "Grape Leaf blight", "Orange Haunglongbing", "Peach Bacterial spot", "Healthy Peach", "Pepper bell Bacterial spot", "Healthy Pepper bell", "Potato Early blight", "Healthy Potato", "Potato Late blight", "Healthy Raspberry", "Healthy Soybean", "Squash Powdery mildew", "Healthy Strawberry", "Strawberry Leaf scorch", "Tomato Bacterial spot", "Tomato Early blight", "Healthy Tomato", "Tomato Late blight", "Tomato Leaf Mold", "Tomato Septoria leaf spot", "Tomato Spider mites", "Tomato Target Spot", "Tomato mosaic virus", "Tomato Yellow Leaf Curl Virus"};
+
+        ArrayList<String> diseaseList = new ArrayList<>(Arrays.asList(labels));
+
         firebaseFirestore.collection("plantDiseaseInfo")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         ArrayList<DocumentSnapshot> documentSnapshot = new ArrayList<DocumentSnapshot>(queryDocumentSnapshots.getDocuments());
+                        if(!documentSnapshot.isEmpty()) {
+                            for (int i = 0;i<documentSnapshot.size();i++){
+                                Log.d("PLANTLYF", "DataEntryFirebase = " + documentSnapshot.get(i).getId());
+
+                                Log.d("PLANTLYF", "DataEntryFirebase = " + diseaseList.contains(documentSnapshot.get(i).getId()));
+                                diseaseList.remove(documentSnapshot.get(i).getId());
+
+                            }
+                        }
+
+                        DataEntryItemRecyclerViewAdapter adapter = new DataEntryItemRecyclerViewAdapter(DataEntryFirebase.this, diseaseList);
+                        binding.dataList.setAdapter(adapter);
+                        binding.dataList.setLayoutManager(new LinearLayoutManager(DataEntryFirebase.this));
+
                         //Log.d("PLANTLYF", "DataEntryFirebase = " + documentSnapshot.get(0));
                     }
                 });
 
-        String[] labels = {"Apple scab", "Apple Black rot", "Cedar apple rust", "Healthy Apple", "Healthy blueberry", "Healthy Cherry", "Cherry Powdery mildew", "Corn(maize) Cercospora Gray spot", "Corn(maize) Common rust", "Healthy Corn(maize)", "Corn(maize) Northern Leaf Blight", "Grape Black rot", "Grape Esca", "Healthy Grape", "Grape Leaf blight", "Orange Haunglongbing", "Peach Bacterial spot", "Healthy Peach", "Pepper bell Bacterial spot", "Healthy Pepper bell", "Potato Early blight", "Healthy Potato", "Potato Late blight", "Healthy Raspberry", "Healthy Soybean", "Squash Powdery mildew", "Healthy Strawberry", "Strawberry Leaf scorch", "Tomato Bacterial spot", "Tomato Early blight", "Healthy Tomato", "Tomato Late blight", "Tomato Leaf Mold", "Tomato Septoria leaf spot", "Tomato Spider mites", "Tomato Target Spot", "Tomato mosaic virus", "Tomato Yellow Leaf Curl Virus"};
 
-        ArrayList<String> diseaseList = new ArrayList<>(Arrays.asList(labels));
-
-        DataEntryItemRecyclerViewAdapter adapter = new DataEntryItemRecyclerViewAdapter(this, diseaseList);
-        binding.dataList.setAdapter(adapter);
-        binding.dataList.setLayoutManager(new LinearLayoutManager(this));
 
     }
 }
