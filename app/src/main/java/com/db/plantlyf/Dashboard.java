@@ -80,6 +80,14 @@ public class Dashboard extends AppCompatActivity {
                 Toast.makeText(Dashboard.this, "User Logged Out", Toast.LENGTH_SHORT).show();
             }
         });
+
+        binding.dataEntryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, DataEntryFirebase.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
