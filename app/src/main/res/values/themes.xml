@@ -105,6 +105,10 @@
     <style name="profilePictureImageView" parent="Theme.AppCompat">
         <item name="android:backgroundTint">@color/white</item>
     </style>
+
+    <style name="profilePictureImageViewInverse" parent="Theme.AppCompat">
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
     
     <style name="editProfileMaterialCard" parent="Theme.AppCompat">
         <item name="strokeColor">@color/black</item>

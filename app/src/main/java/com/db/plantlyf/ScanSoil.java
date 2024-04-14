@@ -18,7 +18,9 @@ import android.widget.VideoView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.db.plantlyf.Adapter.PlantListRecyclerViewAdapter;
 import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
 import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.Utilities.DarkModeStatus;
@@ -28,14 +30,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ScanSoil extends AppCompatActivity {
 
     private ActivityScanSoilBinding binding;
     private boolean onResumeFlag = false;
     private final int REQUEST_IMAGE_CAPTURE = 1;
+    private ArrayList<String> plantsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,13 @@ public class ScanSoil extends AppCompatActivity {
         binding.captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                plantsList = new ArrayList<>();
+                PlantListRecyclerViewAdapter adapter = new PlantListRecyclerViewAdapter(ScanSoil.this, plantsList);
+                binding.recommendedPlantListContainerLL.setAdapter(adapter);
+                binding.recommendedPlantListContainerLL.setLayoutManager(new LinearLayoutManager(ScanSoil.this));
+                binding.noPlantsToDisplayTV.setVisibility(View.VISIBLE);
 
                 binding.predictedSoilTypeTV.setAlpha(0);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -125,8 +140,42 @@ public class ScanSoil extends AppCompatActivity {
 //                        ArrayList<String> plants = (ArrayList<String>);
                         downloadingDialogBox.dismissDialog();
                         Log.d("PLANTLYF", "ScanSoil : Plant list Array(" +predictedLabel+ ") = " + documentSnapshot.get(Constants.DB_PLANTS));
+
+                        setPlantListAdapter(Objects.requireNonNull(documentSnapshot.get(Constants.DB_PLANTS)).toString());
                     }
                 });
+
+    }
+
+    private void setPlantListAdapter(String plants) {
+
+        plantsList = convertToArrayList(plants);
+
+        PlantListRecyclerViewAdapter adapter = new PlantListRecyclerViewAdapter(this, plantsList);
+        binding.recommendedPlantListContainerLL.setAdapter(adapter);
+        binding.recommendedPlantListContainerLL.setLayoutManager(new LinearLayoutManager(this));
+
+        binding.noPlantsToDisplayTV.setVisibility(View.GONE);
+
+    }
+
+    private ArrayList<String> convertToArrayList(String plants) {
+
+        String newStr = plants.replace("[", "").replace("]","");
+        newStr += ",";
+
+        ArrayList<String> plantsList = new ArrayList<>();
+        while(newStr.contains(",")){
+            String plantName = newStr.substring(0, newStr.indexOf(','));
+            plantsList.add(plantName);
+            newStr = newStr.substring(newStr.indexOf(','));
+            if(newStr.length() > 1)
+                newStr = newStr.substring(1);
+            else
+                break;
+        }
+
+        return plantsList;
 
     }
 

@@ -2,7 +2,9 @@ package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.widget.VideoView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivitySplashScreenBinding;
@@ -30,7 +33,6 @@ public class SplashScreen extends AppCompatActivity {
 
         startSplashScreen();
         loadData();
-        startLoginOrRegisterActivity();
 
     }
 
@@ -61,6 +63,40 @@ public class SplashScreen extends AppCompatActivity {
 
         Data.ANDROIDSDKVERSION = Build.VERSION.SDK_INT;
 
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PLANTLYFSHAREDPREFERENCE, Context.MODE_PRIVATE);
+
+        if(!sharedPreferences.getBoolean(Constants.IS_LOGGED_IN, false))
+            startLoginOrRegisterActivity();
+        else{
+            Data.UID = sharedPreferences.getString(Constants.UID, "");
+            Data.USER_FULLNAME = sharedPreferences.getString(Constants.USER_FULLNAME, "");
+            Data.USER_EMAIL = sharedPreferences.getString(Constants.USER_EMAIL, "");
+            Data.USER_PASSWORD = sharedPreferences.getString(Constants.USER_PASSWORD, "");
+            Data.USER_PROFILE_PICTURE = sharedPreferences.getString(Constants.USER_PROFILE_PICTURE, "");
+
+            startDashboardActivity();
+        }
+
+    }
+
+    private void startDashboardActivity() {
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashScreen.this, Dashboard.class);
+                Bundle b = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this).toBundle();
+                startActivity(intent, b);
+            }
+        }, 2500);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 5000);
     }
 
     private void startLoginOrRegisterActivity(){

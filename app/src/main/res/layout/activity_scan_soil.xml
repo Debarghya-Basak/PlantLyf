@@ -78,7 +78,7 @@
         style="@style/materialCardTextColorInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView1"
+        app:layout_constraintBottom_toTopOf="@+id/recommendedPlantListContainerLL"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="20dp"
 
@@ -87,22 +87,25 @@
         />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/noPlantsToDisplayTV"
         style="@style/textColorInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/recommendedPlantListContainerLL"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
 
         android:text="No plants to display"
         android:textSize="15sp"
         />
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recommendedPlantListContainerLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+
         app:layout_constraintBottom_toTopOf="@id/captureBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +114,7 @@
 
 
 
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/captureBtn"

@@ -2,7 +2,9 @@ package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
@@ -26,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.BitmapStringConverter;
 import com.db.plantlyf.Utilities.DialogBox;
@@ -489,6 +492,19 @@ public class LoginOrRegister extends AppCompatActivity {
                                                         Toast.makeText(LoginOrRegister.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                                                         loadingDialogBox.dismissDialog();
+
+                                                        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PLANTLYFSHAREDPREFERENCE, Context.MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                                        editor.putBoolean(Constants.IS_LOGGED_IN, true);
+                                                        editor.putString(Constants.UID, Data.UID);
+                                                        editor.putString(Constants.USER_FULLNAME, Data.USER_FULLNAME);
+                                                        editor.putString(Constants.USER_EMAIL, Data.USER_EMAIL);
+                                                        editor.putString(Constants.USER_PASSWORD, Data.USER_PASSWORD);
+                                                        editor.putString(Constants.USER_PROFILE_PICTURE, Data.USER_PROFILE_PICTURE);
+
+                                                        editor.apply();
+
                                                         Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
                                                         startActivity(intent);
                                                     }

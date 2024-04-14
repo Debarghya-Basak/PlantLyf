@@ -80,6 +80,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profilePictureMC"
             style="@style/materialCardInverse"
             android:layout_width="50dp"
             android:layout_height="50dp"

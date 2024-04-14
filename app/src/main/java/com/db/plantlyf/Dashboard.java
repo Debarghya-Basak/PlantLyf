@@ -1,7 +1,9 @@
 package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,8 +11,10 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.BitmapStringConverter;
 import com.db.plantlyf.Utilities.DarkModeStatus;
@@ -60,6 +64,20 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Dashboard.this, ScanPlantDisease.class));
+            }
+        });
+
+        binding.profilePictureMC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(Constants.PLANTLYFSHAREDPREFERENCE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.clear();
+
+                editor.apply();
+
+                Toast.makeText(Dashboard.this, "User Logged Out", Toast.LENGTH_SHORT).show();
             }
         });
     }
