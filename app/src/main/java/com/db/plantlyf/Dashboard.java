@@ -78,6 +78,15 @@ public class Dashboard extends AppCompatActivity {
                 editor.apply();
 
                 Toast.makeText(Dashboard.this, "User Logged Out", Toast.LENGTH_SHORT).show();
+
+                startActivity(new Intent(Dashboard.this, LoginOrRegister.class));
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 3000);
             }
         });
 
@@ -191,8 +200,11 @@ public class Dashboard extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if(onResumeFlag)
+        if(onResumeFlag) {
+            binding.greetingsTV.setVisibility(View.GONE);
+            binding.appNameTV.setVisibility(View.VISIBLE);
             startBgVideo();
+        }
         else
             onResumeFlag = true;
         super.onResume();

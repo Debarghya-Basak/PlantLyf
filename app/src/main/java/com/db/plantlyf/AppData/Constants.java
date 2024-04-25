@@ -2,9 +2,11 @@ package com.db.plantlyf.AppData;
 
 public class Constants {
 
+    public static final String DB_PLANTDISEASEINFO = "plantDiseaseInfo";
     public static final String DB_SOILINFO = "soilInfo";
     public static final String DB_ALLUVIAL = "alluvial";
     public static final String DB_PLANTS = "plants";
+    public static final String DB_SOLUTION = "solution";
 
     public static final String PLANTLYFSHAREDPREFERENCE = "PlantLyfSharedPreference";
     public static final String UID = "UID";

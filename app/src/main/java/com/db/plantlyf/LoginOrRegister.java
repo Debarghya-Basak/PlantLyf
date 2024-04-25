@@ -523,23 +523,24 @@ public class LoginOrRegister extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(LoginOrRegister.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        loadingDialogBox.dismissDialog();
                                     }
                                 });
 
-                firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-
-                                startSetProfilePicturePage();
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                            }
-                        });
+//                firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+//                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+//                            @Override
+//                            public void onSuccess(AuthResult authResult) {
+//
+//                                startSetProfilePicturePage();
+//
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                            }
+//                        });
             }
         }
         else{

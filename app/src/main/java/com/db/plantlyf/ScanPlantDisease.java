@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -23,15 +24,21 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.db.plantlyf.AiModelHandler.PlantDiseaseClassifier;
 import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
+import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityScanPlantDiseaseBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ScanPlantDisease extends AppCompatActivity {
 
     private ActivityScanPlantDiseaseBinding binding;
+    private boolean onResumeFlag = false;
     private final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
@@ -57,6 +64,9 @@ public class ScanPlantDisease extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                binding.textView1.setVisibility(View.VISIBLE);
+                binding.recommendedSolutionContainerLL.setVisibility(View.INVISIBLE);
+                binding.solutionTV.setText("");
                 binding.predictedPlantDiseaseTV.setAlpha(0);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
@@ -87,6 +97,8 @@ public class ScanPlantDisease extends AppCompatActivity {
         DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box);
         predictionDialogBox.showDialog();
 
+        DialogBox downloadingDialogBox = new DialogBox(this, R.layout.global_loading_dialog_box);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -99,6 +111,36 @@ public class ScanPlantDisease extends AppCompatActivity {
                 binding.predictedPlantDiseaseTV.animate().alpha(1).start();
             }
         }, 2500);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                downloadingDialogBox.showDialog();
+                fetchPlantSolutionDataFromDatabase(predictedLabel, downloadingDialogBox);
+            }
+        },3000);
+
+    }
+
+    private void fetchPlantSolutionDataFromDatabase(String predictedLabel, DialogBox downloadingDialogBox) {
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection(Constants.DB_PLANTDISEASEINFO)
+                .document(predictedLabel)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String solutionFromDatabase = Objects.requireNonNull(documentSnapshot.get(Constants.DB_SOLUTION)).toString();
+
+                        downloadingDialogBox.dismissDialog();
+                        binding.textView1.setVisibility(View.GONE);
+                        binding.recommendedSolutionContainerLL.setVisibility(View.VISIBLE);
+                        binding.solutionTV.setText(solutionFromDatabase);
+                        Log.d("-PLANTLYF-", "ScanPlantDisease: solutionFromDatabase = " + solutionFromDatabase);
+                    }
+                });
 
     }
 
@@ -182,6 +224,15 @@ public class ScanPlantDisease extends AppCompatActivity {
                 videoView.start();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        if(onResumeFlag)
+            startBgVideo();
+        else
+            onResumeFlag = true;
+        super.onResume();
     }
 
 }
