@@ -159,6 +159,7 @@
 
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/managePlantBtn"
             style="@style/btnStyleInverse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

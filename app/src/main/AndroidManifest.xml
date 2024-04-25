@@ -19,6 +19,9 @@
         android:theme="@style/Theme.PlantLyf"
         tools:targetApi="31">
         <activity
+            android:name=".ManagePlant"
+            android:exported="false" />
+        <activity
             android:name=".DataEntryFirebase"
             android:exported="false" />
         <activity
