@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,12 +24,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.db.plantlyf.Adapter.PlantListRecyclerViewAdapter;
 import com.db.plantlyf.AiModelHandler.SoilTypeClassifier;
 import com.db.plantlyf.AppData.Constants;
+import com.db.plantlyf.AppData.Data;
+import com.db.plantlyf.Model.PlantDataModel;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityScanSoilBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -36,6 +41,8 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ScanSoil extends AppCompatActivity {
@@ -43,7 +50,7 @@ public class ScanSoil extends AppCompatActivity {
     private ActivityScanSoilBinding binding;
     private boolean onResumeFlag = false;
     private final int REQUEST_IMAGE_CAPTURE = 1;
-    private ArrayList<String> plantsList = new ArrayList<>();
+    private ArrayList<PlantDataModel> plantsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +137,8 @@ public class ScanSoil extends AppCompatActivity {
     private void fetchPlantNamesFromDatabase(String predictedLabel, DialogBox downloadingDialogBox) {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+//        ArrayList<PlantDataModel> plantData = new ArrayList<>();
+        Map<String, Integer> plantDataMap = new HashMap<>();
 
         firebaseFirestore.collection(Constants.DB_SOILINFO)
                 .document(predictedLabel.toLowerCase())
@@ -137,19 +146,52 @@ public class ScanSoil extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        ArrayList<String> plants = (ArrayList<String>);
-                        downloadingDialogBox.dismissDialog();
+
+//                        downloadingDialogBox.dismissDialog();
                         Log.d("PLANTLYF", "ScanSoil : Plant list Array(" +predictedLabel+ ") = " + documentSnapshot.get(Constants.DB_PLANTS));
 
-                        setPlantListAdapter(Objects.requireNonNull(documentSnapshot.get(Constants.DB_PLANTS)).toString());
+                        firebaseFirestore.collection(Constants.DB_USERDATA)
+                                .document(Data.UID)
+                                .collection(Constants.DB_PLANTDATA)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                                        for(DocumentSnapshot data : queryDocumentSnapshots.getDocuments()){
+                                            PlantDataModel dataModel = new PlantDataModel(data.getId(), Integer.parseInt(Objects.requireNonNull(data.get(Constants.DB_PLANTCOUNT)).toString()));
+                                            Log.d("-PLANTLYF-", "ScanSoil = Plant Name = " + dataModel.getPlantName());
+                                            Log.d("-PLANTLYF-", "ScanSoil = Plant Count = " + dataModel.getPlantCount());
+
+                                            plantDataMap.put(dataModel.getPlantName(), Integer.valueOf(dataModel.getPlantCount()+""));
+                                        }
+
+                                        setPlantListAdapter(plantDataMap, Objects.requireNonNull(documentSnapshot.get(Constants.DB_PLANTS)).toString());
+                                        downloadingDialogBox.dismissDialog();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        downloadingDialogBox.dismissDialog();
+                                    }
+                                });
+
                     }
                 });
 
+
+
     }
 
-    private void setPlantListAdapter(String plants) {
+    private void setPlantListAdapter(Map<String, Integer> plantDataMap, String plants) {
 
         plantsList = convertToArrayList(plants);
+
+        for(PlantDataModel dataModel : plantsList)
+            if(plantDataMap.containsKey(dataModel.getPlantName()))
+                dataModel.setPlantCount(plantDataMap.get(dataModel.getPlantName()).intValue());
+
 
         PlantListRecyclerViewAdapter adapter = new PlantListRecyclerViewAdapter(this, plantsList);
         binding.recommendedPlantListContainerLL.setAdapter(adapter);
@@ -159,15 +201,15 @@ public class ScanSoil extends AppCompatActivity {
 
     }
 
-    private ArrayList<String> convertToArrayList(String plants) {
+    private ArrayList<PlantDataModel> convertToArrayList(String plants) {
 
         String newStr = plants.replace("[", "").replace("]","");
         newStr += ",";
 
-        ArrayList<String> plantsList = new ArrayList<>();
+        ArrayList<PlantDataModel> plantsList = new ArrayList<>();
         while(newStr.contains(",")){
             String plantName = newStr.substring(0, newStr.indexOf(','));
-            plantsList.add(plantName);
+            plantsList.add(new PlantDataModel(plantName, 0));
             newStr = newStr.substring(newStr.indexOf(','));
             if(newStr.length() > 1)
                 newStr = newStr.substring(1);

@@ -4,6 +4,9 @@ public class Constants {
 
     public static final String DB_PLANTDISEASEINFO = "plantDiseaseInfo";
     public static final String DB_SOILINFO = "soilInfo";
+    public static final String DB_USERDATA = "userData";
+    public static final String DB_PLANTDATA = "plantData";
+    public static final String DB_PLANTCOUNT = "plantCount";
     public static final String DB_ALLUVIAL = "alluvial";
     public static final String DB_PLANTS = "plants";
     public static final String DB_SOLUTION = "solution";
