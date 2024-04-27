@@ -107,10 +107,10 @@ public class ScanSoil extends AppCompatActivity {
 
         String predictedLabel = soilTypeClassifier.classifyImage(resizedSoilImage);
 
-        DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box);
+        DialogBox predictionDialogBox = new DialogBox(this, R.layout.global_prediction_dialog_box,false);
         predictionDialogBox.showDialog();
 
-        DialogBox downloadingDialogBox = new DialogBox(this, R.layout.global_loading_dialog_box);
+        DialogBox downloadingDialogBox = new DialogBox(this, R.layout.global_loading_dialog_box,false);
 
         new Handler().postDelayed(new Runnable() {
             @Override

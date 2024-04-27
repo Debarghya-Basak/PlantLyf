@@ -70,7 +70,7 @@ public class PlantListRecyclerViewAdapter extends RecyclerView.Adapter<PlantList
             @Override
             public void onClick(View v) {
 
-                DialogBox sendingDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box);
+                DialogBox sendingDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box,false);
                 sendingDataDialogBox.showDialog();
                 FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 

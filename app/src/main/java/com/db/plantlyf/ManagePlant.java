@@ -1,6 +1,7 @@
 package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,14 +9,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.db.plantlyf.Adapter.ManagePlantListRecyclerViewAdapter;
@@ -55,12 +54,39 @@ public class ManagePlant extends AppCompatActivity {
         initializeContainerBg();
         startBgVideo();
         fetchDataFromDatabase();
+        initializeBtns();
+
+    }
+
+    private void initializeBtns() {
+
+        binding.addPlantManuallyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DialogBox addPlantDialogBox;
+                if(DarkModeStatus.isDarkModeEnabled(ManagePlant.this))
+                    addPlantDialogBox = new DialogBox(ManagePlant.this, R.layout.manageplant_add_plant_dialogbox, R.drawable.global_functional_dialogbox_bg_dark, true);
+                else
+                    addPlantDialogBox = new DialogBox(ManagePlant.this, R.layout.manageplant_add_plant_dialogbox, R.drawable.global_functional_dialogbox_bg_light, true);
+
+                addPlantDialogBox.showDialog();
+
+                Dialog dialog = addPlantDialogBox.getDialog();
+                dialog.findViewById(R.id.finalAddPlantManuallyBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ManagePlant.this, "Clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
 
     private void fetchDataFromDatabase() {
 
-        DialogBox dialogBox = new DialogBox(this, R.layout.global_loading_dialog_box);
+        DialogBox dialogBox = new DialogBox(this, R.layout.global_loading_dialog_box,false);
         dialogBox.showDialog();
 
         plantData = new ArrayList<>();

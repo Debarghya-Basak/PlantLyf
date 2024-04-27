@@ -71,7 +71,7 @@ public class ManagePlantListRecyclerViewAdapter extends RecyclerView.Adapter<Man
             @Override
             public void onClick(View v) {
 
-                DialogBox sendingDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box);
+                DialogBox sendingDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box,false);
                 sendingDataDialogBox.showDialog();
                 FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -100,7 +100,7 @@ public class ManagePlantListRecyclerViewAdapter extends RecyclerView.Adapter<Man
         holder.deletePlantBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogBox deleteDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box);
+                DialogBox deleteDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box,false);
                 deleteDataDialogBox.showDialog();
                 FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                 firebaseFirestore.collection(Constants.DB_USERDATA)

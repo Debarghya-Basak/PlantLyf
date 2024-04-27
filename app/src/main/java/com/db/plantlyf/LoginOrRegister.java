@@ -213,7 +213,7 @@ public class LoginOrRegister extends AppCompatActivity {
     private void userRegisterAuth() {
         initializeFirebaseAuth();
 
-        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box);
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box,false);
 
         loadingDialogBox.showDialog();
 
@@ -331,7 +331,7 @@ public class LoginOrRegister extends AppCompatActivity {
 
         initializeFirebaseFirestore();
 
-        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box);
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box,false);
 
         loadingDialogBox.showDialog();
 
@@ -525,7 +525,7 @@ public class LoginOrRegister extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void userLoginAuth() {
 
-        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box);
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box,false);
 
         loadingDialogBox.showDialog();
 
