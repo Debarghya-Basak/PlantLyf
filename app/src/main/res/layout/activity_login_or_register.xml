@@ -217,6 +217,52 @@
 
             style="@style/textColor"/>
 
+        <LinearLayout
+            android:id="@+id/forgotPw_containerLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:visibility="gone"
+            android:alpha="0">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+
+                style="@style/editTextLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/forgotPw_emailET"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:inputType="textEmailAddress"
+                    android:hint="Enter your email"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/forgotPw_sendLink_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:elevation="5dp"
+
+                android:text="Send password reset link"
+
+                style="@style/btnStyle"/>
+
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 <!--  REGISTER PAGE  -->

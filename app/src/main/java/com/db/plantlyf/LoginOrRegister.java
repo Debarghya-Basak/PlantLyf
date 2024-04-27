@@ -101,6 +101,13 @@ public class LoginOrRegister extends AppCompatActivity {
             }
         });
 
+        binding.loginForgotpwBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendForgotPwRequest();
+            }
+        });
+
         //REGISTER PAGE--------------------------------------------------------------
         binding.submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,6 +453,44 @@ public class LoginOrRegister extends AppCompatActivity {
                 binding.loginContainerLL.animate().alpha(1).setDuration(500).start();
             }
         },700);
+
+    }
+
+    private void sendForgotPwRequest() {
+        initializeFirebaseAuth();
+
+        binding.forgotPwContainerLL.setVisibility(View.VISIBLE);
+        binding.forgotPwContainerLL.animate().alpha(1).setDuration(500).start();
+
+        binding.forgotPwSendLinkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(binding.forgotPwEmailET.getText())){
+                    firebaseAuth.sendPasswordResetEmail(binding.forgotPwEmailET.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(LoginOrRegister.this, "Password reset link sent", Toast.LENGTH_LONG).show();
+                                    binding.forgotPwContainerLL.animate().alpha(0).setDuration(500).start();
+
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            binding.forgotPwEmailET.setText("");
+                                            binding.forgotPwContainerLL.setVisibility(View.GONE);
+
+                                        }
+                                    },500);
+                                }
+                            });
+
+                }
+                else
+                    Toast.makeText(LoginOrRegister.this, "Please Enter Email", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
     }
 
