@@ -263,6 +263,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/waterPlantMC"
                 style="@style/materialCardInverse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -297,6 +298,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/plantNutritionMC"
                 style="@style/materialCardInverse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
