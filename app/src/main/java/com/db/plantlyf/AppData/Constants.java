@@ -6,6 +6,7 @@ public class Constants {
     public static final String DB_SOILINFO = "soilInfo";
     public static final String DB_USERDATA = "userData";
     public static final String DB_PLANTDATA = "plantData";
+    public static final String DB_PLANTINFO = "plantInfo";
     public static final String DB_PLANTCOUNT = "plantCount";
     public static final String DB_ALLUVIAL = "alluvial";
     public static final String DB_PLANTS = "plants";
@@ -18,4 +19,5 @@ public class Constants {
     public static final String USER_EMAIL = "USER_EMAIL";
     public static final String USER_PASSWORD = "USER_PASSWORD";
     public static final String USER_PROFILE_PICTURE = "USER_PROFILE_PICTURE";
+
 }

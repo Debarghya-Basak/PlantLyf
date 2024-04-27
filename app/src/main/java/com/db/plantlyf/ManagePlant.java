@@ -38,6 +38,7 @@ public class ManagePlant extends AppCompatActivity {
     private ActivityManagePlantBinding binding;
     private boolean onResumeFlag = false;
     private ArrayList<PlantDataModel> plantData;
+    private ArrayList<String> plantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,39 +91,58 @@ public class ManagePlant extends AppCompatActivity {
         dialogBox.showDialog();
 
         plantData = new ArrayList<>();
+        plantList = new ArrayList<>();
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-        firebaseFirestore.collection(Constants.DB_USERDATA)
-                .document(Data.UID)
-                .collection(Constants.DB_PLANTDATA)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        firebaseFirestore.collection(Constants.DB_PLANTINFO)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot data : queryDocumentSnapshots.getDocuments()){
+                            Log.d("-PLANTLYF-" , "ManagePlant : Plant Info = " + data.getId());
+                            plantList.add(data.getId());
+                        }
+
+                        firebaseFirestore.collection(Constants.DB_USERDATA)
+                                .document(Data.UID)
+                                .collection(Constants.DB_PLANTDATA)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
 //                        Log.d("-PLANTLYF-", "ManagePlant = " + queryDocumentSnapshots.getDocuments().get(0).getId());
 
-                        for(DocumentSnapshot data : queryDocumentSnapshots.getDocuments()){
-                            PlantDataModel dataModel = new PlantDataModel(data.getId(), Integer.parseInt(Objects.requireNonNull(data.get(Constants.DB_PLANTCOUNT)).toString()));
-                            Log.d("-PLANTLYF-", "ManagePlant = Plant Name = " + dataModel.getPlantName());
-                            Log.d("-PLANTLYF-", "ManagePlant = Plant Count = " + dataModel.getPlantCount());
+                                        for(DocumentSnapshot data : queryDocumentSnapshots.getDocuments()){
+                                            PlantDataModel dataModel = new PlantDataModel(data.getId(), Integer.parseInt(Objects.requireNonNull(data.get(Constants.DB_PLANTCOUNT)).toString()));
+                                            Log.d("-PLANTLYF-", "ManagePlant = Plant Name = " + dataModel.getPlantName());
+                                            Log.d("-PLANTLYF-", "ManagePlant = Plant Count = " + dataModel.getPlantCount());
 
-                            plantData.add(dataModel);
-                        }
+                                            plantData.add(dataModel);
+                                        }
 
-                        if(!plantData.isEmpty())
-                            binding.noPlantsToDisplayTV.setVisibility(View.GONE);
-                        setRecyclerViewAdapter();
-                        dialogBox.dismissDialog();
+                                        if(!plantData.isEmpty())
+                                            binding.noPlantsToDisplayTV.setVisibility(View.GONE);
+                                        setRecyclerViewAdapter();
+                                        dialogBox.dismissDialog();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        dialogBox.dismissDialog();
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        dialogBox.dismissDialog();
+
                     }
                 });
+
 
     }
 
