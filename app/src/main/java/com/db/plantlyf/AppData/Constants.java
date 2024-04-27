@@ -7,6 +7,8 @@ public class Constants {
     public static final String DB_USERDATA = "userData";
     public static final String DB_PLANTDATA = "plantData";
     public static final String DB_PLANTINFO = "plantInfo";
+    public static final String DB_PLANTNUTRITION = "plantNutrition";
+    public static final String DB_PLANTWATERTIMING = "plantWaterTiming";
     public static final String DB_PLANTCOUNT = "plantCount";
     public static final String DB_ALLUVIAL = "alluvial";
     public static final String DB_PLANTS = "plants";
