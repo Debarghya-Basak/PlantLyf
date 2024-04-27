@@ -640,6 +640,11 @@ public class LoginOrRegister extends AppCompatActivity {
         else if(navigation.equals("SetProfilePicture")){
             startRegisterPage();
         }
+        else if(navigation.equals("Login")){
+            binding.forgotPwContainerLL.setVisibility(View.GONE);
+            binding.forgotPwContainerLL.setAlpha(0);
+            startLoginRegisterPage();
+        }
         else {
             startLoginRegisterPage();
         }
