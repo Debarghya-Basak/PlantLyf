@@ -86,6 +86,14 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        binding.waterPlantMC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, PlantWater.class);
+                startActivity(intent);
+            }
+        });
+
         binding.profilePictureMC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

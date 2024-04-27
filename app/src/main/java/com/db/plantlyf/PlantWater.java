@@ -22,7 +22,7 @@ import com.db.plantlyf.Model.PlantDataModel;
 import com.db.plantlyf.Model.PlantNutritionWaterModel;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.Utilities.DialogBox;
-import com.db.plantlyf.databinding.ActivityPlantNutritionBinding;
+import com.db.plantlyf.databinding.ActivityPlantWaterBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,19 +34,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class PlantNutrition extends AppCompatActivity {
+public class PlantWater extends AppCompatActivity {
 
-    private ActivityPlantNutritionBinding binding;
+    private ActivityPlantWaterBinding binding;
     private boolean onResumeFlag = false;
+    private Map<String, String> plantWater;
     private ArrayList<PlantDataModel> plantData;
-    private Map<String, String> plantNutrition;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPlantNutritionBinding.inflate(getLayoutInflater());
+        binding = ActivityPlantWaterBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
@@ -68,7 +66,7 @@ public class PlantNutrition extends AppCompatActivity {
         DialogBox dialogBox = new DialogBox(this, R.layout.global_loading_dialog_box,false);
         dialogBox.showDialog();
 
-        plantNutrition = new HashMap<>();
+        plantWater = new HashMap<>();
 
         plantData = new ArrayList<>();
 
@@ -80,7 +78,7 @@ public class PlantNutrition extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                         for(DocumentSnapshot data : queryDocumentSnapshots.getDocuments()){
-                            plantNutrition.put(data.getId(),data.getData().get(Constants.DB_PLANTNUTRITION).toString());
+                            plantWater.put(data.getId(),data.getData().get(Constants.DB_PLANTWATERTIMING).toString());
                         }
 
 
@@ -129,7 +127,7 @@ public class PlantNutrition extends AppCompatActivity {
 
         ArrayList<PlantNutritionWaterModel> plantNutritionWaterModel = new ArrayList<>();
         for(PlantDataModel model :  plantData)
-            plantNutritionWaterModel.add(new PlantNutritionWaterModel(model.getPlantName(), plantNutrition.get(model.getPlantName())));
+            plantNutritionWaterModel.add(new PlantNutritionWaterModel(model.getPlantName(), plantWater.get(model.getPlantName())));
 
         PlantNutritionWaterRecyclerViewAdapter adapter = new PlantNutritionWaterRecyclerViewAdapter(this, plantNutritionWaterModel);
         binding.plantListRV.setAdapter(adapter);
