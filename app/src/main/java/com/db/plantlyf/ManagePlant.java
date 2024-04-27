@@ -111,6 +111,8 @@ public class ManagePlant extends AppCompatActivity {
                             plantData.add(dataModel);
                         }
 
+                        if(!plantData.isEmpty())
+                            binding.noPlantsToDisplayTV.setVisibility(View.GONE);
                         setRecyclerViewAdapter();
                         dialogBox.dismissDialog();
                     }
@@ -126,8 +128,7 @@ public class ManagePlant extends AppCompatActivity {
 
     private void setRecyclerViewAdapter() {
 
-        binding.noPlantsToDisplayTV.setVisibility(View.GONE);
-        ManagePlantListRecyclerViewAdapter adapter = new ManagePlantListRecyclerViewAdapter(this, plantData);
+        ManagePlantListRecyclerViewAdapter adapter = new ManagePlantListRecyclerViewAdapter(this, plantData, binding.noPlantsToDisplayTV);
         binding.plantListRV.setAdapter(adapter);
         binding.plantListRV.setLayoutManager(new LinearLayoutManager(this));
 

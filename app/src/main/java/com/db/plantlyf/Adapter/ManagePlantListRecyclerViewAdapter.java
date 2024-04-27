@@ -29,10 +29,12 @@ public class ManagePlantListRecyclerViewAdapter extends RecyclerView.Adapter<Man
 
     private ArrayList<PlantDataModel> plantsList;
     private Context context;
+    private TextView noPlantsToDisplayTV;
 
-    public ManagePlantListRecyclerViewAdapter(Context context, ArrayList<PlantDataModel> plantsList) {
+    public ManagePlantListRecyclerViewAdapter(Context context, ArrayList<PlantDataModel> plantsList, TextView noPlantsToDisplayTV) {
         this.context = context;
         this.plantsList = plantsList;
+        this.noPlantsToDisplayTV = noPlantsToDisplayTV;
     }
 
     @NonNull
@@ -114,6 +116,8 @@ public class ManagePlantListRecyclerViewAdapter extends RecyclerView.Adapter<Man
                             public void onSuccess(Void unused) {
                                 plantsList.remove(position);
                                 notifyDataSetChanged();
+                                if(plantsList.isEmpty())
+                                    noPlantsToDisplayTV.setVisibility(View.VISIBLE);
                                 deleteDataDialogBox.dismissDialog();
                             }
                         })
