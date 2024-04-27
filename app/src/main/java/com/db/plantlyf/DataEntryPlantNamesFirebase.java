@@ -5,6 +5,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -79,10 +82,14 @@ public class DataEntryPlantNamesFirebase extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Toast.makeText(DataEntryPlantNamesFirebase.this, "Submitted", Toast.LENGTH_SHORT).show();
+                                        plantNames.add(binding.dataEntryPlantNameET.getText().toString());
+                                        updateList();
                                         binding.dataEntryPlantWaterTimingET.setText("");
                                         binding.dataEntryPlantNameET.setText("");
                                         binding.dataEntryPlantNutritionET.setText("");
                                         loadingDialog.dismissDialog();
+
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -102,6 +109,11 @@ public class DataEntryPlantNamesFirebase extends AppCompatActivity {
 
 
 
+    }
+
+    private void updateList() {
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, plantNames);
+        binding.plantNamesLV.setAdapter(adapter);
     }
 
     private boolean containsPlant(String plantName) {
@@ -130,6 +142,7 @@ public class DataEntryPlantNamesFirebase extends AppCompatActivity {
                             plantNames.add(data.getId());
                         }
 
+                        updateList();
                         loadingDialog.dismissDialog();
                     }
                 });
