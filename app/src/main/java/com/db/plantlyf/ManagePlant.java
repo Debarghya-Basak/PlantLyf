@@ -2,6 +2,7 @@ package com.db.plantlyf;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -26,11 +31,15 @@ import com.db.plantlyf.Utilities.DialogBox;
 import com.db.plantlyf.databinding.ActivityManagePlantBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.search.SearchBar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ManagePlant extends AppCompatActivity {
@@ -61,6 +70,7 @@ public class ManagePlant extends AppCompatActivity {
 
     private void initializeBtns() {
 
+
         binding.addPlantManuallyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,15 +81,79 @@ public class ManagePlant extends AppCompatActivity {
                 else
                     addPlantDialogBox = new DialogBox(ManagePlant.this, R.layout.manageplant_add_plant_dialogbox, R.drawable.global_functional_dialogbox_bg_light, true);
 
-                addPlantDialogBox.showDialog();
-
                 Dialog dialog = addPlantDialogBox.getDialog();
-                dialog.findViewById(R.id.finalAddPlantManuallyBtn).setOnClickListener(new View.OnClickListener() {
+                updateAdapter(addPlantDialogBox, dialog, plantList);
+
+                SearchView searchPlantNamesSV = dialog.findViewById(R.id.searchPlantNamesSV);
+                searchPlantNamesSV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
-                    public void onClick(View v) {
-                        Toast.makeText(ManagePlant.this, "Clicked", Toast.LENGTH_SHORT).show();
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        ArrayList<String> updatedPlantList = new ArrayList<>();
+                        for(String s : plantList){
+                            if(s.toLowerCase().contains(newText.toLowerCase()))
+                                updatedPlantList.add(s);
+                        }
+
+                        if(newText.isEmpty())
+                            updateAdapter(addPlantDialogBox, dialog, plantList);
+                        else
+                            updateAdapter(addPlantDialogBox, dialog, updatedPlantList);
+                        return false;
                     }
                 });
+
+                addPlantDialogBox.showDialog();
+
+//                dialog.findViewById(R.id.finalAddPlantManuallyBtn).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(ManagePlant.this, "Clicked", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+            }
+        });
+
+    }
+
+    private void updateAdapter(DialogBox addPlantDialogBox, Dialog dialog, ArrayList<String> plantList) {
+
+        ListView plantListView = dialog.findViewById(R.id.plantListDialogLV);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), com.google.android.material.R.layout.support_simple_spinner_dropdown_item, plantList);
+        plantListView.setAdapter(adapter);
+
+        plantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                DialogBox sendingDataDialogBox = new DialogBox(ManagePlant.this, R.layout.global_loading_dialog_box, false);
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+                Map<String,Integer> data = new HashMap<>();
+                data.put(Constants.DB_PLANTCOUNT, 0);
+                firebaseFirestore.collection(Constants.DB_USERDATA)
+                        .document(Data.UID)
+                        .collection(Constants.DB_PLANTDATA)
+                        .document(plantList.get(position))
+                        .set(data)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                fetchDataFromDatabase();
+                                addPlantDialogBox.dismissDialog();
+                                sendingDataDialogBox.dismissDialog();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                sendingDataDialogBox.dismissDialog();
+                            }
+                        });
             }
         });
 
