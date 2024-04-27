@@ -88,6 +88,12 @@ public class Dashboard extends AppCompatActivity {
 
                 editor.apply();
 
+                Data.UID = "";
+                Data.USER_EMAIL = "";
+                Data.USER_PASSWORD = "";
+                Data.USER_FULLNAME = "";
+                Data.USER_PROFILE_PICTURE = "no_profile_picture";
+
                 Toast.makeText(Dashboard.this, "User Logged Out", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(Dashboard.this, LoginOrRegister.class));
