@@ -228,12 +228,16 @@ public class LoginOrRegister extends AppCompatActivity {
             String userConfirmPassword = String.valueOf(binding.registerConfirmpwET.getText());
 
             if (invalidUserName(userFullName)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Please enter full name", Toast.LENGTH_SHORT).show();
             } else if (invalidUserEmail(userEmail)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Please enter correct email", Toast.LENGTH_SHORT).show();
             } else if (invalidUserPassword(userPassword)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Password is invalid", Toast.LENGTH_SHORT).show();
             } else if (!userPassword.equals(userConfirmPassword)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Confirm password does not match", Toast.LENGTH_SHORT).show();
             } else {
                 firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
@@ -327,6 +331,10 @@ public class LoginOrRegister extends AppCompatActivity {
 
         initializeFirebaseFirestore();
 
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box);
+
+        loadingDialogBox.showDialog();
+
         Map<String, Object> data = new HashMap<>();
         data.put("full_name", Data.USER_FULLNAME);
         data.put("email", Data.USER_EMAIL);
@@ -346,6 +354,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(LoginOrRegister.this, "Registration Successful\nLogin To Continue", Toast.LENGTH_SHORT).show();
 
+                        loadingDialogBox.dismissDialog();
                         startLoginRegisterPage();
 //                        Intent intent = new Intent(LoginOrRegister.this, Dashboard.class);
 //                        startActivity(intent);
@@ -356,6 +365,15 @@ public class LoginOrRegister extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(LoginOrRegister.this, "Registration failed", Toast.LENGTH_SHORT).show();
                         Objects.requireNonNull(firebaseAuth.getCurrentUser()).delete();
+                        loadingDialogBox.dismissDialog();
+                        Intent intent = new Intent(LoginOrRegister.this, LoginOrRegister.class);
+                        startActivity(intent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 1000);
                     }
                 });
     }
@@ -520,8 +538,10 @@ public class LoginOrRegister extends AppCompatActivity {
             String userPassword = String.valueOf(binding.loginPasswordET.getText());
 
             if (invalidUserEmail(userEmail)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Please enter correct email", Toast.LENGTH_SHORT).show();
             } else if (invalidUserPassword(userPassword)) {
+                loadingDialogBox.dismissDialog();
                 Toast.makeText(this, "Password is invalid", Toast.LENGTH_SHORT).show();
             }  else {
                 firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword)
