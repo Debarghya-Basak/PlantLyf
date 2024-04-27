@@ -213,6 +213,10 @@ public class LoginOrRegister extends AppCompatActivity {
     private void userRegisterAuth() {
         initializeFirebaseAuth();
 
+        loadingDialogBox = new DialogBox(LoginOrRegister.this, R.layout.global_loading_dialog_box);
+
+        loadingDialogBox.showDialog();
+
         if(!(TextUtils.isEmpty(binding.registerNameET.getText())
         || TextUtils.isEmpty(binding.registerEmailET.getText())
         || TextUtils.isEmpty(binding.registerPasswordET.getText())
@@ -238,6 +242,7 @@ public class LoginOrRegister extends AppCompatActivity {
                             public void onSuccess(AuthResult authResult) {
                                 Log.d("Firebase Authentication : ", authResult.getUser().getUid());
 
+                                loadingDialogBox.dismissDialog();
                                 Data.UID = authResult.getUser().getUid();
                                 Data.USER_FULLNAME = userFullName;
                                 Data.USER_EMAIL = userEmail;
@@ -250,12 +255,16 @@ public class LoginOrRegister extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                loadingDialogBox.dismissDialog();
+
                                 Toast.makeText(LoginOrRegister.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         }
         else{
+            loadingDialogBox.dismissDialog();
+
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
         }
     }
@@ -589,6 +598,7 @@ public class LoginOrRegister extends AppCompatActivity {
             }
         }
         else{
+            loadingDialogBox.dismissDialog();
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
         }
 
