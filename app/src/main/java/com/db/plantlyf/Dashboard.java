@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivityDashboardBinding;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.time.LocalTime;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -144,9 +147,31 @@ public class Dashboard extends AppCompatActivity {
 
     private void showGreetings() {
 
+        int hour = 5; //default hour
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            hour = LocalTime.now().getHour();
+            Log.d("-PLANTLYF-", "Dashboard: LocalTime(Hour) = " + hour);
+        }
 
-        String time = "evening";
-        String greetingsText = "Good " + time;
+        String time;
+        String greetingsText;
+
+        if(hour >= 5 && hour <= 11){
+            time = "morning";
+            greetingsText = "Good" + time;
+        }
+        else if(hour >= 12 && hour <= 16){
+            time = "afternoon";
+            greetingsText = "Good" + time;
+        }
+        else if(hour >= 17 && hour <= 20){
+            time = "evening";
+            greetingsText = "Good" + time;
+        }
+        else{
+            greetingsText = "Sleep Well";
+        }
+
         String userFirstName = Data.USER_FULLNAME.substring(0, Data.USER_FULLNAME.indexOf(' '));
 
         binding.greetingsTV.setText(greetingsText);

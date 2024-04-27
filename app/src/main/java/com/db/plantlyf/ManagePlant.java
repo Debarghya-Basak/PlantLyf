@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.db.plantlyf.Adapter.ManagePlantListRecyclerViewAdapter;
 import com.db.plantlyf.AppData.Constants;
 import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Model.PlantDataModel;
@@ -83,6 +85,7 @@ public class ManagePlant extends AppCompatActivity {
                             plantData.add(dataModel);
                         }
 
+                        setRecyclerViewAdapter();
                         dialogBox.dismissDialog();
                     }
                 })
@@ -92,6 +95,15 @@ public class ManagePlant extends AppCompatActivity {
                         dialogBox.dismissDialog();
                     }
                 });
+
+    }
+
+    private void setRecyclerViewAdapter() {
+
+        binding.noPlantsToDisplayTV.setVisibility(View.GONE);
+        ManagePlantListRecyclerViewAdapter adapter = new ManagePlantListRecyclerViewAdapter(this, plantData);
+        binding.plantListRV.setAdapter(adapter);
+        binding.plantListRV.setLayoutManager(new LinearLayoutManager(this));
 
     }
 

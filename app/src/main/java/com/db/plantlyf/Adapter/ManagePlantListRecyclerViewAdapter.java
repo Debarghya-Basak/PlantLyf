@@ -1,5 +1,6 @@
 package com.db.plantlyf.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,27 +25,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlantListRecyclerViewAdapter extends RecyclerView.Adapter<PlantListRecyclerViewAdapter.ViewHolder> {
+public class ManagePlantListRecyclerViewAdapter extends RecyclerView.Adapter<ManagePlantListRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<PlantDataModel> plantsList;
     private Context context;
 
-    public PlantListRecyclerViewAdapter(Context context, ArrayList<PlantDataModel> plantsList) {
+    public ManagePlantListRecyclerViewAdapter(Context context, ArrayList<PlantDataModel> plantsList) {
         this.context = context;
         this.plantsList = plantsList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ManagePlantListRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.scansoil_plant_card, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.manageplant_plant_card, parent, false);
+        return new ManagePlantListRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ManagePlantListRecyclerViewAdapter.ViewHolder holder, int position) {
 
         holder.plantNameTV.setText(plantsList.get(position).getPlantName());
         holder.showPlantCountTv.setText(""+plantsList.get(position).getPlantCount());
@@ -96,6 +97,36 @@ public class PlantListRecyclerViewAdapter extends RecyclerView.Adapter<PlantList
             }
         });
 
+        holder.deletePlantBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogBox deleteDataDialogBox = new DialogBox(context, R.layout.global_loading_dialog_box);
+                deleteDataDialogBox.showDialog();
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                firebaseFirestore.collection(Constants.DB_USERDATA)
+                        .document(Data.UID)
+                        .collection(Constants.DB_PLANTDATA)
+                        .document(plantsList.get(position).getPlantName())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @SuppressLint("NotifyDataSetChanged")
+                            @Override
+                            public void onSuccess(Void unused) {
+                                plantsList.remove(position);
+                                notifyDataSetChanged();
+                                deleteDataDialogBox.dismissDialog();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                deleteDataDialogBox.dismissDialog();
+
+                            }
+                        });
+            }
+        });
+
     }
 
     @Override
@@ -107,7 +138,7 @@ public class PlantListRecyclerViewAdapter extends RecyclerView.Adapter<PlantList
 
         TextView plantNameTV, showPlantCountTv;
         MaterialCardView addPlantCountBtn, subtractPlantCountBtn;
-        MaterialButton savePlantBtn;
+        MaterialButton savePlantBtn, deletePlantBtn;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -117,7 +148,9 @@ public class PlantListRecyclerViewAdapter extends RecyclerView.Adapter<PlantList
             addPlantCountBtn = itemView.findViewById(R.id.addPlantCountBtn);
             subtractPlantCountBtn = itemView.findViewById(R.id.subtractPlantCountBtn);
             savePlantBtn = itemView.findViewById(R.id.savePlantBtn);
+            deletePlantBtn = itemView.findViewById(R.id.deletePlantBtn);
 
         }
     }
+
 }
