@@ -206,10 +206,20 @@ public class ScanSoil extends AppCompatActivity {
         String newStr = plants.replace("[", "").replace("]","");
         newStr += ",";
 
+        int index = 0;
         ArrayList<PlantDataModel> plantsList = new ArrayList<>();
         while(newStr.contains(",")){
-            String plantName = newStr.substring(0, newStr.indexOf(','));
+
+            String plantName = "";
+            if(index > 0)
+                plantName = newStr.substring(1, newStr.indexOf(','));
+            else if(index == 0)
+                plantName = newStr.substring(0, newStr.indexOf(','));
+
+
             plantsList.add(new PlantDataModel(plantName, 0));
+            index++;
+
             newStr = newStr.substring(newStr.indexOf(','));
             if(newStr.length() > 1)
                 newStr = newStr.substring(1);

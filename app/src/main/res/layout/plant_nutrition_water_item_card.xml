@@ -6,7 +6,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
+        android:minHeight="150dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,25 +79,21 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:minHeight="90dp"
 
                     style="@style/materialCard">
 
-                    <ScrollView
+                    <TextView
+                        android:id="@+id/plantNutritionWaterTV"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
 
-                        <TextView
-                            android:id="@+id/plantNutritionWaterTV"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
+                        android:text="hello"
 
-                            android:text="hello"
+                        style="@style/textColorInverse"
 
-                            style="@style/textColorInverse"
-
-                            />
-                    </ScrollView>
+                        />
 
                 </com.google.android.material.card.MaterialCardView>
 

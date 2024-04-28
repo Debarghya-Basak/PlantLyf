@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/plantNutritionTV"
+        android:id="@+id/plantWaterTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +42,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
 
-        android:text="Plant Nutrition"
+        android:text="Plant Water"
         android:textAllCaps="true"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -64,7 +64,7 @@
         android:textStyle="bold"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantNutritionTV" />
+        app:layout_constraintTop_toBottomOf="@+id/plantWaterTV" />
 
     <TextView
         android:id="@+id/noPlantsToDisplayTV"
@@ -92,6 +92,10 @@
         android:layout_marginTop="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:requiresFadingEdge="vertical"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="20dp"
 
         app:layout_constraintTop_toBottomOf="@id/yourPlantsTV"
         app:layout_constraintStart_toStartOf="parent"
