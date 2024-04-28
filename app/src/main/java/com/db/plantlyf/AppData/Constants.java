@@ -21,5 +21,6 @@ public class Constants {
     public static final String USER_EMAIL = "USER_EMAIL";
     public static final String USER_PASSWORD = "USER_PASSWORD";
     public static final String USER_PROFILE_PICTURE = "USER_PROFILE_PICTURE";
+    public static final String NO_PROFILE_PICTURE = "no_profile_picture";
 
 }

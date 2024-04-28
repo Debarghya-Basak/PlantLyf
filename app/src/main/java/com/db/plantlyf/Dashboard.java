@@ -97,29 +97,15 @@ public class Dashboard extends AppCompatActivity {
         binding.profilePictureMC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences(Constants.PLANTLYFSHAREDPREFERENCE, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.clear();
-
-                editor.apply();
-
-                Data.UID = "";
-                Data.USER_EMAIL = "";
-                Data.USER_PASSWORD = "";
-                Data.USER_FULLNAME = "";
-                Data.USER_PROFILE_PICTURE = "no_profile_picture";
-
-                Toast.makeText(Dashboard.this, "User Logged Out", Toast.LENGTH_SHORT).show();
-
-                startActivity(new Intent(Dashboard.this, LoginOrRegister.class));
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         finish();
                     }
-                }, 3000);
+                },500);
+
+            startActivity(new Intent(Dashboard.this, SettingsDashboard.class));
             }
         });
 
@@ -159,7 +145,7 @@ public class Dashboard extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void showProfilePicture(){
-        if(Data.USER_PROFILE_PICTURE.equals("no_profile_picture"))
+        if(Data.USER_PROFILE_PICTURE.equals(Constants.NO_PROFILE_PICTURE))
             binding.profilePicture.setBackground(getDrawable(R.drawable.default_profile_picture));
         else
             binding.profilePicture.setImageBitmap(BitmapStringConverter.stringToBitmap(Data.USER_PROFILE_PICTURE));

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.PlantLyf"
         tools:targetApi="31">
         <activity
+            android:name=".SettingsDashboard"
+            android:exported="false" />
+        <activity
             android:name=".PlantWater"
             android:exported="false" />
         <activity
