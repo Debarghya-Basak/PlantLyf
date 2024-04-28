@@ -35,7 +35,6 @@ public class Dashboard extends AppCompatActivity {
 
     private ActivityDashboardBinding binding;
     private boolean onResumeFlag = false;
-    private boolean isDeveloper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +63,11 @@ public class Dashboard extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         if(documentSnapshot.get("key") == null) {
+                            Data.isDeveloper = false;
                             Log.d("-PLANTLYF-", "Dashboard : DEveloper ? " + documentSnapshot.get("key"));
                         }
                         else{
+                            Data.isDeveloper = true;
                             binding.devDataEntryHSV.setVisibility(View.VISIBLE);
                         }
                     }

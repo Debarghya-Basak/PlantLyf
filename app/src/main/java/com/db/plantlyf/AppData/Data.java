@@ -9,4 +9,5 @@ public class Data {
     public static String USER_EMAIL = "";
     public static String USER_PASSWORD = "";
     public static String USER_PROFILE_PICTURE = "no_profile_picture";
+    public static boolean isDeveloper = false;
 }

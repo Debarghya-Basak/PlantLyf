@@ -34,6 +34,7 @@ import com.db.plantlyf.databinding.ActivitySettingsDashboardBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
@@ -49,6 +50,8 @@ public class SettingsDashboard extends AppCompatActivity {
     private final int PERMISSION_READ_EXTERNAL_STORAGE = 100;
     private final int PERMISSION_READ_MEDIA_IMAGES = 101;
     private DialogBox loadingDialogBox;
+    private int devModeCounter;
+    private boolean lockDevModeChange = false;
 
 
     @Override
@@ -66,6 +69,12 @@ public class SettingsDashboard extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        if(Data.isDeveloper)
+            devModeCounter = 5;
+        else
+            devModeCounter = 0;
+
         loadingDialogBox = new DialogBox(this, R.layout.global_loading_dialog_box, false);
 
         binding.showEmailTV.setText(Data.USER_EMAIL);
@@ -78,6 +87,82 @@ public class SettingsDashboard extends AppCompatActivity {
     }
 
     private void initializeBtns() {
+        binding.enableDevModeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!lockDevModeChange) {
+                    devModeCounter++;
+                    if (devModeCounter == 5) {
+                        lockDevModeChange = true;
+
+                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("key", "Debarghya Basak made this app");
+
+                        firebaseFirestore.collection(Constants.DB_USERDATA)
+                                .document(Data.UID).collection(Constants.DEVELOPERBUILD)
+                                .document(Constants.DEVELOPER).set(data)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Data.isDeveloper = true;
+                                        Toast.makeText(SettingsDashboard.this, "You are now a developer", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        lockDevModeChange = false;
+                                        devModeCounter = 0;
+                                    }
+                                });
+
+
+
+                    }
+                }
+
+            }
+        });
+
+        binding.disableDevModeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!lockDevModeChange) {
+                    devModeCounter--;
+                    if (devModeCounter == 0) {
+                        lockDevModeChange = true;
+
+                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+                        firebaseFirestore.collection(Constants.DB_USERDATA)
+                                .document(Data.UID).collection(Constants.DEVELOPERBUILD)
+                                .document(Constants.DEVELOPER).delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Data.isDeveloper = false;
+                                        Toast.makeText(SettingsDashboard.this, "You are not a developer", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        lockDevModeChange = false;
+                                        devModeCounter = 5;
+                                    }
+                                });
+
+
+
+                    }
+                }
+
+            }
+        });
+
 
         binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
