@@ -20,7 +20,13 @@ import com.db.plantlyf.AppData.Data;
 import com.db.plantlyf.Utilities.BitmapStringConverter;
 import com.db.plantlyf.Utilities.DarkModeStatus;
 import com.db.plantlyf.databinding.ActivityDashboardBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalTime;
@@ -29,6 +35,7 @@ public class Dashboard extends AppCompatActivity {
 
     private ActivityDashboardBinding binding;
     private boolean onResumeFlag = false;
+    private boolean isDeveloper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,26 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void initializePage() {
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection(Constants.DB_USERDATA)
+                .document(Data.UID).collection(Constants.DEVELOPERBUILD)
+                .document(Constants.DEVELOPER).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        if(documentSnapshot.get("key") == null) {
+                            Log.d("-PLANTLYF-", "Dashboard : DEveloper ? " + documentSnapshot.get("key"));
+                        }
+                        else{
+                            binding.devDataEntryHSV.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+
+
         initializeButtons();
         initializeContainerBg();
         initializeCardIcons();

@@ -23,4 +23,6 @@ public class Constants {
     public static final String USER_PROFILE_PICTURE = "USER_PROFILE_PICTURE";
     public static final String NO_PROFILE_PICTURE = "no_profile_picture";
 
+    public static final String DEVELOPERBUILD = "developerBuild";
+    public static final String DEVELOPER = "developer";
 }
