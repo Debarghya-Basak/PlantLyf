@@ -188,7 +188,7 @@ public class Dashboard extends AppCompatActivity {
             greetingsText = "Sleep Well";
         }
 
-        String userFirstName = Data.USER_FULLNAME.substring(0, Data.USER_FULLNAME.indexOf(' '));
+        String userFirstName = (Data.USER_FULLNAME+" ").substring(0, (Data.USER_FULLNAME+" ").indexOf(' '));
 
         binding.greetingsTV.setText(greetingsText);
         binding.userFirstNameTV.setText(userFirstName);
